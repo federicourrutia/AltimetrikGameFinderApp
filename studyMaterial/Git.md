@@ -295,20 +295,16 @@ git rebase -i HEAD~20
 
 
 
-## 
-
-
-
 ## Sources
 
-https://git-scm.com/book/en/v2/Git-Basics-Tagging
-https://www.atlassian.com/git/tutorials/
-https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet
-https://www.atlassian.com/es/git/tutorials/saving-changes/git-stash
-https://www.atlassian.com/git/tutorials/git-hooks
-https://www.youtube.com/watch?v=8JJ101D3knE&ab_channel=ProgrammingwithMosh
-https://www.youtube.com/watch?v=CRlGDDprdOQ
-https://www.perforce.com/blog/vcs/git-rebase-vs-merge-which-better
-https://levelup.gitconnected.com/the-difference-between-git-merge-and-git-rebase-8f7d1b159931
-https://www.youtube.com/watch?v=8JJ101D3knE&ab_channel=ProgrammingwithMosh
-https://www.youtube.com/watch?v=CRlGDDprdOQ
+- https://git-scm.com/book/en/v2/Git-Basics-Tagging
+- https://www.atlassian.com/git/tutorials/
+- https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet
+- https://www.atlassian.com/es/git/tutorials/saving-changes/git-stash
+- https://www.atlassian.com/git/tutorials/git-hooks
+- https://www.youtube.com/watch?v=8JJ101D3knE&ab_channel=ProgrammingwithMosh
+- https://www.youtube.com/watch?v=CRlGDDprdOQ
+- https://www.perforce.com/blog/vcs/git-rebase-vs-merge-which-better
+- https://levelup.gitconnected.com/the-difference-between-git-merge-and-git-rebase-8f7d1b159931
+- https://www.youtube.com/watch?v=8JJ101D3knE&ab_channel=ProgrammingwithMosh
+- https://www.youtube.com/watch?v=CRlGDDprdOQ
