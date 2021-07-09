@@ -2,12 +2,14 @@ const showPassword = function () {
   let passwordinput = document.querySelector(".input__password-input");
   if (passwordinput.type === "password") {
     passwordinput.type = "text";
-    document.querySelector(".input__password-icon").src =
-      "img/hidepassword.svg";
+    document.querySelector(
+      ".input__showpassword-button"
+    ).style.backgroundImage = "url(img/hidepassword.svg)";
   } else {
     passwordinput.type = "password";
-    document.querySelector(".input__password-icon").src =
-      "img/showpassword.svg";
+    document.querySelector(
+      ".input__showpassword-button"
+    ).style.backgroundImage = "url(img/showpassword.svg)";
   }
 };
 
