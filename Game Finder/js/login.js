@@ -13,62 +13,103 @@ const showPassword = function () {
   }
 };
 
-const loginButton = function () {
-  const showError = function (responseText) {
-    let mailMessage = document.querySelector(".error-message-mail");
-    let passwordMessage = document.querySelector(".error-message-password");
-    let passwordInputLength = document.querySelector(".input__password-input")
-      .value.length;
-    document
-      .querySelector(".login__separator")
-      .classList.add("margin-modifier");
+const isValidEmail = function (email) {
+  var re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+};
 
-    if (
-      responseText === "Email and password are required" ||
-      responseText === "Email format is invalid"
-    ) {
-      mailMessage.classList.add("show");
-      passwordMessage.classList.remove("show");
-      mailMessage.innerHTML = `${responseText}`;
-    }
-    if (
-      responseText === "Cannot find user" ||
-      responseText === "Incorrect password"
-    ) {
-      mailMessage.classList.remove("show");
-      passwordMessage.classList.add("show");
-      passwordMessage.innerHTML = "Invalid credentials";
-    }
-    if (passwordInputLength < 4 && passwordInputLength > 0) {
-      passwordMessage.classList.add("show");
-      passwordMessage.innerHTML = "Password is too short";
-    }
+const setError = function () {
+  document.querySelector(".login__separator").classList.add("margin-modifier");
+  document
+    .querySelectorAll(
+      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill"
+    )
+    .forEach((element) => element.classList.add("error"));
+};
 
-    document
-      .querySelectorAll(
-        ".input__username-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill"
-      )
-      .forEach((element) => element.classList.add("error"));
-  };
+const resetErrors = function () {
+  document
+    .querySelector(".login__separator")
+    .classList.remove("margin-modifier");
+  document
+    .querySelectorAll(
+      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill"
+    )
+    .forEach((element) => element.classList.remove("error"));
+};
 
-  fetch("http://localhost:3000/login", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: `${document.querySelector(".input__username-input").value}`,
-      password: `${document.querySelector(".input__password-input").value}`,
-    }),
-  }).then(async (response) => {
-    let responseText = await response.json();
-    if (response.status === 200) {
-      document.cookie = "authToken=" + responseText.accessToken;
-      alert("Login!");
-    }
-    if (response.status === 400) {
-      showError(responseText);
-    }
-  });
+const closeSnackbar = function () {
+  document.querySelector(".snackbar").classList.remove("--show--error");
+};
+
+const login = function () {
+  let mailMessage = document.querySelector(".error-message-mail");
+  let passwordMessage = document.querySelector(".error-message-password");
+  let emailInput = document.querySelector(".input__email-input");
+  let emailInputLength = document.querySelector(".input__email-input").value
+    .length;
+  let passwordInputLength = document.querySelector(".input__password-input")
+    .value.length;
+
+  resetErrors();
+  mailMessage.classList.remove("show");
+  passwordMessage.classList.remove("show");
+
+  if (emailInputLength === 0 || passwordInputLength === 0) {
+    setError();
+    passwordMessage.classList.add("show");
+    mailMessage.classList.remove("show");
+    passwordMessage.innerHTML = "Email and password are required";
+  }
+
+  if (
+    isValidEmail(emailInput.value) === false &&
+    emailInputLength > 0 &&
+    passwordInputLength !== 0
+  ) {
+    setError();
+    mailMessage.classList.add("show");
+    passwordMessage.classList.remove("show");
+    mailMessage.innerHTML = "Email format is invalid";
+  }
+
+  if (passwordInputLength < 4 && passwordInputLength > 0) {
+    setError();
+    passwordMessage.classList.add("show");
+    passwordMessage.innerHTML = "Password is too short";
+  }
+  if (passwordInputLength > 3 && passwordInputLength > 0) {
+    passwordMessage.classList.remove("show");
+  }
+
+  if (isValidEmail(emailInput.value) === true && passwordInputLength > 3) {
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: `${emailInput.value}`,
+        password: `${document.querySelector(".input__password-input").value}`,
+      }),
+    })
+      .then(async (response) => {
+        let responseText = await response.json();
+        if (response.status === 200) {
+          document.cookie = "authToken=" + responseText.accessToken;
+          alert("Login!");
+        }
+        if (response.status === 400) {
+          setError();
+          mailMessage.classList.remove("show");
+          passwordMessage.classList.add("show");
+          passwordMessage.innerHTML = "Invalid credentials";
+        }
+      })
+      .catch((error) => {
+        document.querySelector(".snackbar").classList.add("--show--error");
+      });
+  }
 };

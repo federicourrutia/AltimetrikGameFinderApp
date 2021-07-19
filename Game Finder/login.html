@@ -75,7 +75,7 @@
                   </svg>
                 </div>
                 <input
-                  class="input__username-input"
+                  class="input__email-input"
                   type="text"
                   placeholder="Email"
                 />
@@ -119,13 +119,13 @@
               <input type="checkbox" />
               <p class="standard-text">Remember me</p>
             </div>
-            <button onclick="loginButton()" class="login__submit-button">
+            <button onclick="login()" class="login__submit-button">
               LOGIN
             </button>
           </div>
           <div class="login__register-forgotpass-links">
-            <p><a href="#">Register now</a></p>
-            <p><a href="#">Forgot password?</a></p>
+            <a href="#"><span>Register now</span></a>
+            <a href="#"><span>Forgot password?</span></a>
           </div>
           <div class="login__separator">
             <hr class="login__separator-line" />
@@ -199,6 +199,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="snackbar">
+      <span>Server error, please try again later</span>
+      <button class="snackbar-close" onclick="closeSnackbar()" />
     </div>
   </body>
 </html>
