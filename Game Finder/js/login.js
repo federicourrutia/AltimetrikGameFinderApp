@@ -1,20 +1,58 @@
+let mailMessage = document.querySelector(".error-message-mail");
+let passwordMessage = document.querySelector(".error-message-password");
+let emailInput = document.querySelector(".input__email-input");
+let passwordInput = document.querySelector(".input__password-input");
+
 const showPassword = function () {
-  let passwordinput = document.querySelector(".input__password-input");
-  if (passwordinput.type === "password") {
-    passwordinput.type = "text";
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
     document.querySelector(
       ".input__showpassword-button"
     ).style.backgroundImage = "url(img/hidepassword.svg)";
   } else {
-    passwordinput.type = "password";
+    passwordInput.type = "password";
     document.querySelector(
       ".input__showpassword-button"
     ).style.backgroundImage = "url(img/showpassword.svg)";
   }
 };
 
+//Email input active state handling
+emailInput.addEventListener("input", function () {
+  document
+    .querySelectorAll(".icon-box__variable-fill-user")
+    .forEach((element) => element.classList.add("focused"));
+});
+emailInput.addEventListener("click", function () {
+  document
+    .querySelectorAll(".icon-box__variable-fill-user")
+    .forEach((element) => element.classList.add("focused"));
+});
+emailInput.addEventListener("blur", function () {
+  document
+    .querySelectorAll(".icon-box__variable-fill-user")
+    .forEach((element) => element.classList.remove("focused"));
+});
+
+//Password input active state handling
+passwordInput.addEventListener("input", function () {
+  document
+    .querySelectorAll(".icon-box__variable-fill-password")
+    .forEach((element) => element.classList.add("focused"));
+});
+passwordInput.addEventListener("click", function () {
+  document
+    .querySelectorAll(".icon-box__variable-fill-password")
+    .forEach((element) => element.classList.add("focused"));
+});
+passwordInput.addEventListener("blur", function () {
+  document
+    .querySelectorAll(".icon-box__variable-fill-password")
+    .forEach((element) => element.classList.remove("focused"));
+});
+
 const isValidEmail = function (email) {
-  var re =
+  let re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
@@ -23,7 +61,7 @@ const setError = function () {
   document.querySelector(".login__separator").classList.add("margin-modifier");
   document
     .querySelectorAll(
-      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill"
+      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill-user, .icon-box__variable-fill-password"
     )
     .forEach((element) => element.classList.add("error"));
 };
@@ -34,7 +72,7 @@ const resetErrors = function () {
     .classList.remove("margin-modifier");
   document
     .querySelectorAll(
-      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill"
+      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill-user, .icon-box__variable-fill-password"
     )
     .forEach((element) => element.classList.remove("error"));
 };
@@ -44,9 +82,6 @@ const closeSnackbar = function () {
 };
 
 const login = function () {
-  let mailMessage = document.querySelector(".error-message-mail");
-  let passwordMessage = document.querySelector(".error-message-password");
-  let emailInput = document.querySelector(".input__email-input");
   let emailInputLength = document.querySelector(".input__email-input").value
     .length;
   let passwordInputLength = document.querySelector(".input__password-input")
@@ -56,21 +91,21 @@ const login = function () {
   mailMessage.classList.remove("show");
   passwordMessage.classList.remove("show");
 
-  if (emailInputLength === 0 || passwordInputLength === 0) {
-    setError();
-    passwordMessage.classList.add("show");
-    mailMessage.classList.remove("show");
-    passwordMessage.innerHTML = "Email and password are required";
-  }
-
-  if (
-    isValidEmail(emailInput.value) === false &&
-    emailInputLength > 0 &&
-    passwordInputLength !== 0
-  ) {
+  if (emailInputLength === 0) {
     setError();
     mailMessage.classList.add("show");
-    passwordMessage.classList.remove("show");
+    mailMessage.innerHTML = "Email is required";
+  }
+
+  if (passwordInputLength === 0) {
+    setError();
+    passwordMessage.classList.add("show");
+    passwordMessage.innerHTML = "Password is required";
+  }
+
+  if (isValidEmail(emailInput.value) === false && emailInputLength > 0) {
+    setError();
+    mailMessage.classList.add("show");
     mailMessage.innerHTML = "Email format is invalid";
   }
 
