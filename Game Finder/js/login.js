@@ -17,7 +17,7 @@ const showPassword = function () {
   }
 };
 
-//Email input active state handling
+// //Email input active state handling
 emailInput.addEventListener("input", function () {
   document
     .querySelectorAll(".icon-box__variable-fill-user")
@@ -81,7 +81,7 @@ const closeSnackbar = function () {
   document.querySelector(".snackbar").classList.remove("--show--error");
 };
 
-const login = function () {
+const loginValidation = function () {
   let emailInputLength = document.querySelector(".input__email-input").value
     .length;
   let passwordInputLength = document.querySelector(".input__password-input")
@@ -117,34 +117,40 @@ const login = function () {
   if (passwordInputLength > 3 && passwordInputLength > 0) {
     passwordMessage.classList.remove("show");
   }
-
   if (isValidEmail(emailInput.value) === true && passwordInputLength > 3) {
-    fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: `${emailInput.value}`,
-        password: `${document.querySelector(".input__password-input").value}`,
-      }),
-    })
-      .then(async (response) => {
-        let responseText = await response.json();
-        if (response.status === 200) {
-          document.cookie = "authToken=" + responseText.accessToken;
-          alert("Login!");
-        }
-        if (response.status === 400) {
-          setError();
-          mailMessage.classList.remove("show");
-          passwordMessage.classList.add("show");
-          passwordMessage.innerHTML = "Invalid credentials";
-        }
-      })
-      .catch((error) => {
-        document.querySelector(".snackbar").classList.add("--show--error");
-      });
+    login();
   }
+};
+
+const login = function () {
+  fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: `${emailInput.value}`,
+      password: `${document.querySelector(".input__password-input").value}`,
+    }),
+  })
+    .then(async (response) => {
+      let responseJson = await response.json();
+      if (response.status === 200) {
+        document.cookie = "authToken=" + responseJson.accessToken;
+        window.location.href = "main-view.html";
+      }
+      if (response.status === 400) {
+        setError();
+        mailMessage.classList.remove("show");
+        passwordMessage.classList.add("show");
+        passwordMessage.innerHTML = "Invalid credentials";
+      }
+    })
+    .catch(() => {
+      document.querySelector(".snackbar").classList.add("--show--error");
+      // setTimeout(() => {
+      //   document.querySelector(".snackbar").classList.remove("--show--error");
+      // }, 15000);
+    });
 };

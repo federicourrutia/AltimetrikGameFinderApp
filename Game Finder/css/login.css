@@ -213,6 +213,7 @@ input {
 input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   min-width: 20px;
   height: 20px;
   border: 1px solid #8f8f8f;
@@ -430,7 +431,7 @@ input[type="checkbox"]:focus {
   * {
     color: #303030;
     background-color: #303030;
-    opacity: 0.5;
+    visibility: hidden;
     overflow: hidden;
   }
 }
@@ -508,6 +509,10 @@ input[type="checkbox"]:focus {
     margin-top: 20px;
     margin-bottom: 40px;
   }
+  .snackbar {
+    min-width: 300px;
+    margin-left: -150px;
+  }
 }
 
 /* Media queries for tablet */
@@ -549,5 +554,9 @@ input[type="checkbox"]:focus {
 
   .login__separator {
     margin-top: 22px;
+  }
+  .snackbar {
+    min-width: 450px;
+    margin-left: -200px;
   }
 }
