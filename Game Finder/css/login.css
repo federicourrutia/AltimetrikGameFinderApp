@@ -410,6 +410,7 @@ input[type="checkbox"]:focus {
 .show {
   display: block;
 }
+
 .error {
   color: #e07979;
   border-color: #e07979;
