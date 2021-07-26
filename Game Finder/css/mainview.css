@@ -459,7 +459,11 @@ input[type="radio"]:checked {
   display: none;
 }
 
-/* Testing */
+/* Modifier classes added with Javascript */
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
 
 .--display-suggestions {
   border-radius: 20px 20px 0px 0px;
@@ -515,27 +519,82 @@ input[type="radio"]:checked {
   margin-bottom: 15px;
 }
 
+.show {
+  display: block;
+}
+
 .main__catalog.--horizontal {
+  align-items: center;
+  margin-left: 13px;
   flex-direction: column;
   flex-wrap: nowrap;
 }
 
-.main__card.--horizontal {
+.main__catalog.--horizontal .main__card {
   flex-shrink: 0;
   width: 696px;
   height: 538px;
+  flex-basis: auto;
 }
 
-.main__card-image.--horizontal {
+.main__catalog.--horizontal .main__card-content-info-text {
+  margin-right: 40px;
+  margin-top: 0px;
+  width: 155px;
+  padding-bottom: 3px;
+}
+
+.main__catalog.--horizontal .main__card-image {
   height: 315px;
 }
 
-.main__card-content-info.--horizontal {
+.main__catalog.--horizontal .main__card-content {
+  overflow: hidden;
+  height: 223px;
+}
+
+.main__catalog.--horizontal .main__card-content-body {
+  overflow: hidden;
+  height: auto;
+}
+
+.main__catalog.--horizontal .main__card-content-info {
   margin-left: 39px;
 }
 
-.main__card-content-misc.--horizontal {
+.main__catalog.--horizontal .main__card-content-info h2 {
+  margin-top: 20px;
+}
+
+.main__catalog.--horizontal .main__card-content-info-text p:first-child {
+  margin-right: 16px;
+}
+
+.main__catalog.--horizontal .main__card-content-info-text p:last-child {
+  color: #fff;
+}
+
+.main__catalog.--horizontal .main__card-content-misc {
   margin-right: 40px;
+}
+
+.main__catalog.--horizontal .main__card-content-info-text-container {
+  display: flex;
+  margin-top: 17px;
+}
+
+.main__catalog.--horizontal .main__card-content-misc p {
+  position: relative;
+  top: 18px;
+  right: 207px;
+}
+
+.main__catalog.--horizontal .main__card-content-misc-platforms svg {
+  margin-top: 13px;
+}
+
+.main__catalog.--horizontal .gift {
+  margin-top: -7px;
 }
 
 .leftmenu {
@@ -545,6 +604,27 @@ input[type="radio"]:checked {
   height: 100%;
   background-color: #151515;
   box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
+}
+
+.game-description {
+  display: none;
+}
+
+.main__catalog.--horizontal .game-description {
+  display: block;
+  margin-top: 20px;
+  overflow: hidden;
+  max-height: 95px;
+  max-width: 582px;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #ffffff;
 }
 
 /* Media queries for mobile devices */
@@ -649,6 +729,12 @@ input[type="radio"]:checked {
   .main__catalog {
     padding-left: 13px;
   }
+
+  .main__catalog.--horizontal {
+    align-items: flex-start;
+    margin-left: 0px;
+  }
+
   .main__card {
     flex: 0 0 45%;
     margin-left: 25px;
