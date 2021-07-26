@@ -353,6 +353,10 @@ input[type="radio"]:checked {
 }
 
 .main__card-content-info h2 {
+  width: 230px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: start;
   margin-top: 8px;
   font-weight: 800;
@@ -385,6 +389,11 @@ input[type="radio"]:checked {
   color: #939393;
 }
 
+.main__card-content-info-text p:last-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .main__card-content-misc {
   display: flex;
   flex-direction: column;
