@@ -211,5 +211,10 @@ searchInput.addEventListener("blur", function () {
 });
 
 const openModal = function (id) {
+  document.querySelector(".modal-bg").classList.remove("hidden");
   console.log(id);
+};
+
+const closeModal = function () {
+  document.querySelector(".modal-bg").classList.add("hidden");
 };

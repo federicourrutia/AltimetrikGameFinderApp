@@ -668,6 +668,11 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* MODAL */
+
+.modal-bg.hidden {
+  display: none;
+}
+
 .modal-bg {
   display: flex;
   position: fixed;
@@ -682,12 +687,251 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal {
-  mix-blend-mode: normal;
-  opacity: 0.57;
   width: 1082px;
   height: 793px;
-  background-color: blue;
   margin: 0 auto;
+  background-color: #303030;
+  border-radius: 10px;
+}
+
+.modal__background {
+  position: fixed;
+  mix-blend-mode: normal;
+  background-repeat: no-repeat;
+  background-size: cover;
+  mix-blend-mode: normal;
+  opacity: 0.57;
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 70%);
+  -moz-mask-image: linear-gradient(to top, transparent 0%, black 70%);
+  mask-image: linear-gradient(to top, transparent 0%, black 70%);
+  width: 1082px;
+  height: auto;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.modal__wrap {
+  display: flex;
+}
+
+.modal__close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.modal__content {
+  color: #fff;
+  position: absolute;
+  width: 1082px;
+  height: 793px;
+  padding-left: 79px;
+}
+
+.modal__left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__right {
+  width: 50%;
+}
+
+.modal__close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.modal__top-platforms {
+  margin-top: 34px;
+  width: 100%;
+}
+
+.modal__content h1 {
+  width: 100%;
+  font-weight: 800;
+  font-size: 60px;
+  line-height: 82px;
+  margin-top: 4px;
+  margin-left: -4px;
+}
+
+.modal__info {
+  display: flex;
+  font-size: 16px;
+  color: #303030;
+  margin-top: 44px;
+}
+
+.modal__buttons {
+  display: flex;
+  margin-top: 32px;
+}
+
+.modal__info span {
+  margin-right: 20px;
+  background-color: #ffffff;
+}
+
+.modal__info b {
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1em;
+  color: #2bb34f;
+}
+
+.modal__info span:first-child {
+  padding: 3px 15px 2px 15px;
+}
+
+.modal__info span:nth-child(2) {
+  padding: 3px 9px 2px 8px;
+}
+
+.modal__info span:nth-child(3) {
+  padding: 3px 8px 2px 8px;
+}
+
+.modal__game-description {
+  width: 470px;
+  margin-top: 32px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.modal__buttons span {
+  font-weight: 300;
+  color: #fff;
+  text-align: left;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.modal__buttons b {
+  font-size: 18px;
+}
+
+.modal__button-transparent {
+  padding-left: 20px;
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+  width: 125px;
+  height: 50px;
+  background-color: transparent;
+  border: 1px solid #979797;
+  border-radius: 10px;
+}
+
+.modal__button-transparent svg {
+  margin-top: 1px;
+  margin-left: 22px;
+}
+
+.modal__button-green {
+  margin-left: 20px;
+  padding-left: 10px;
+  padding-right: 12px;
+  padding-top: 8px;
+  display: flex;
+  width: 151px;
+  height: 50px;
+  background: linear-gradient(180deg, #7cd235 0%, #2bb34f 100%);
+  border-radius: 10px;
+}
+
+.modal__button-green svg {
+  margin-top: 5px;
+  margin-left: 15px;
+}
+
+.modal__button-gray {
+  padding: 13px 14px 14px 20px;
+  display: flex;
+  font-size: 12px;
+  line-height: 16px;
+  color: #fff;
+  width: 141px;
+  height: 40px;
+  background: #515151;
+  border-radius: 10px;
+}
+
+.modal__button-gray:first-child {
+  padding: 13px 7px 13px 11px;
+}
+
+.modal__button-gray:first-child svg {
+  margin-left: 8px;
+}
+.modal__button-gray:last-child {
+  margin-left: 24px;
+}
+
+.modal__button-gray:last-child svg {
+  margin-left: 13px;
+  margin-top: 1px;
+}
+
+.modal__comment-buttons {
+  display: flex;
+  margin-top: 27px;
+}
+
+.modal__details {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 16px;
+  color: #939393;
+}
+
+.modal__hypertext,
+.modal__hypertext:visited {
+  color: #fff;
+  text-decoration-line: underline;
+  cursor: pointer;
+  line-height: 25px;
+}
+
+.modal__details-text-box {
+  width: 198px;
+  margin-bottom: 15px;
+}
+
+.modal__details-text-box p:nth-child(2) {
+  line-height: 25px;
+  color: #fff;
+}
+
+.modal__right {
+  padding-top: 40px;
+  padding-left: 27px;
+}
+
+.img-medium {
+  width: 385px;
+  height: 217px;
+}
+
+.img-small {
+  margin-top: 16px;
+  object-fit: cover;
+  width: 184px;
+  height: 104px;
+}
+
+.img-small:nth-child(3),
+.img-small:nth-child(5) {
+  margin-left: 14px;
 }
 
 /* Media queries limbo */
