@@ -312,6 +312,21 @@ input[type="radio"]:checked {
   overflow: hidden;
 }
 
+.main__card #ps {
+  width: 16px;
+  height: 13px;
+}
+
+.main__card #xbox,
+.main__card #pc,
+.main__card #apple,
+.main__card #linux,
+.main__card #nintendo,
+.main__card #android {
+  width: 13px;
+  height: 13px;
+}
+
 .main__card-inner-shadow:hover {
   box-shadow: inset 0px 0px 20px #151515;
 }

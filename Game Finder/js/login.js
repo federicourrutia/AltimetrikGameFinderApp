@@ -1,8 +1,10 @@
+// HTML References
 let mailMessage = document.querySelector(".error-message-mail");
 let passwordMessage = document.querySelector(".error-message-password");
 let emailInput = document.querySelector(".input__email-input");
 let passwordInput = document.querySelector(".input__password-input");
 
+// Hide/show password on click
 const showPassword = function () {
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
@@ -51,12 +53,14 @@ passwordInput.addEventListener("blur", function () {
     .forEach((element) => element.classList.remove("focused"));
 });
 
+// Email validation with regular expression
 const isValidEmail = function (email) {
   let re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
 
+// Input color modifier for errors
 const setError = function () {
   document.querySelector(".login__separator").classList.add("margin-modifier");
   document
@@ -66,6 +70,7 @@ const setError = function () {
     .forEach((element) => element.classList.add("error"));
 };
 
+// Removes error classes
 const resetErrors = function () {
   document
     .querySelector(".login__separator")
@@ -77,10 +82,12 @@ const resetErrors = function () {
     .forEach((element) => element.classList.remove("error"));
 };
 
+// Snackbar close
 const closeSnackbar = function () {
   document.querySelector(".snackbar").classList.remove("--show--error");
 };
 
+// Login validation function pre-request
 const loginValidation = function () {
   let emailInputLength = document.querySelector(".input__email-input").value
     .length;
@@ -122,6 +129,7 @@ const loginValidation = function () {
   }
 };
 
+// Login function w/request
 const login = function () {
   fetch("http://localhost:3000/login", {
     method: "POST",
