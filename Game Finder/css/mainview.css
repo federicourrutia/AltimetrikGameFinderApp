@@ -113,7 +113,7 @@ svg {
 
 .left-sidebar__navigation.--bold:hover,
 .left-sidebar__navigation.--light:hover,
-.left-sidebar__navigation:hover > .navicon {
+.left-sidebar__navigation:hover .navicon {
   fill: #7cd235;
   color: #7cd235;
 }
@@ -122,6 +122,10 @@ svg {
   display: none;
   margin-top: auto;
   margin-bottom: 100px;
+}
+
+.left-sidebar__navigation.--light.--logout:hover .navicon {
+  fill: #7cd235;
 }
 
 .left-sidebar__navigation.--bold {
@@ -319,7 +323,8 @@ input[type="radio"]:checked {
 
 .main__card #xbox,
 .main__card #pc,
-.main__card #apple,
+.main__card #ios,
+.main__card #mac,
 .main__card #linux,
 .main__card #nintendo,
 .main__card #android {
@@ -968,7 +973,7 @@ input[type="search"]::-webkit-search-cancel-button {
   .left-sidebar {
     min-width: 303px;
     position: fixed;
-    left: -500px;
+    left: -1000px;
     height: 100%;
     background: #151515;
     box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
@@ -1029,7 +1034,7 @@ input[type="search"]::-webkit-search-cancel-button {
     height: 104px;
     position: fixed;
     overflow: hidden;
-    transition: 0.5s;
+    transition: 0.2s;
     z-index: 1;
   }
 
