@@ -36,7 +36,6 @@ svg {
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, #7cd235 0%, #2bb34f 100%);
-  box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
   height: 120px;
   width: 100%;
   box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
@@ -101,6 +100,11 @@ svg {
   flex-direction: column;
   min-width: 263px;
   min-height: 100%;
+  padding-left: 39px;
+}
+
+.left-sidebar__logo {
+  display: none;
 }
 
 .left-sidebar a {
@@ -125,31 +129,29 @@ svg {
   font-size: 22px;
   line-height: 30px;
   color: #fff;
-  margin-left: 39px;
   margin-top: 11px;
 }
 
-.left-sidebar__navigation.--bold:first-child {
+.left-sidebar__navigation:nth-child(2) {
   margin-top: 33px;
 }
 
-.left-sidebar__navigation.--bold:nth-child(7) {
+.left-sidebar__navigation:nth-child(4) {
+  margin-bottom: 33px;
+}
+
+.left-sidebar__navigation:nth-child(7) {
   margin-top: 33px;
   margin-bottom: 22px;
 }
 
 .left-sidebar__navigation.--light {
-  margin-left: 39px;
   font-style: normal;
   font-weight: normal;
   font-size: 22px;
   line-height: 30px;
   color: #fff;
   margin-top: 11px;
-}
-
-.left-sidebar a:nth-child(4) {
-  margin-top: 33px;
 }
 
 .left-sidebar__navigation.--light svg {
@@ -299,13 +301,11 @@ input[type="radio"]:checked {
 }
 
 .main__card {
-  z-index: 1;
   flex: 0 0 31%;
   display: flex;
   flex-direction: column;
   list-style-type: none;
   height: 314px;
-  background-color: #303030;
   border-radius: 10px;
   margin-right: 24px;
   margin-bottom: 24px;
@@ -341,6 +341,7 @@ input[type="radio"]:checked {
 .main__card-content {
   display: flex;
   height: 108px;
+  background-color: #303030;
 }
 
 .main__card-content-body {
@@ -455,7 +456,6 @@ input[type="radio"]:checked {
 
 .footer {
   pointer-events: none;
-  z-index: 1;
   position: fixed;
   bottom: 0px;
   left: 0px;
@@ -656,44 +656,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .main__catalog.--horizontal .main__card-game-description.show {
   display: block;
-}
-
-/* Expanded header with search box */
-.header.--expand {
-  height: 166px;
-}
-
-.header__search-box.--expand {
-  display: block;
-  width: 78%;
-  position: absolute;
-  top: 63px;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.header__search-box.--expand .header__search-box-icon {
-  display: none;
-}
-
-.header__search-box.--expand.--display-suggestions {
-  border-radius: 20px;
-}
-
-.header__search-box.--expand .header__suggestion-block {
-  display: none;
-}
-
-/* Left menu wip */
-.leftmenu {
-  position: absolute;
-  z-index: 2;
-  width: 303px;
-  height: 100%;
-  background-color: #151515;
-  box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
 }
 
 /* MODAL */
@@ -985,12 +947,81 @@ input[type="search"]::-webkit-search-cancel-button {
 
 /* Media queries for mobile devices */
 @media only screen and (min-width: 320px) and (max-width: 767px) {
-  .left-sidebar {
-    display: none;
+  body {
+    overflow: hidden;
   }
+  .left-sidebar {
+    min-width: 303px;
+    position: fixed;
+    left: -500px;
+    height: 100%;
+    background: #151515;
+    box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
+    transition: 0.5s;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .left-sidebar.--display {
+    display: flex;
+  }
+
+  .left-sidebar__navigation {
+    margin-left: 30px;
+  }
+
+  .left-sidebar__navigation:nth-child(2) {
+    margin-top: 88px;
+  }
+
+  .left-sidebar__navigation:nth-child(4) {
+    margin-top: 11px;
+  }
+
+  .left-sidebar__navigation:nth-child(5) {
+    margin-top: 33px;
+  }
+
+  .left-sidebar__navigation:nth-child(8) {
+    margin-top: 33px;
+    margin-bottom: 33px;
+  }
+
+  .left-sidebar__navigation.--light.--logout {
+    display: block;
+  }
+
+  .left-sidebar__logo {
+    display: flex;
+    margin-top: 32px;
+    justify-content: space-between;
+  }
+
+  .left-sidebar__logo--big {
+    margin-left: 30px;
+  }
+
+  .left-sidebar__logo--shrink {
+    margin-right: 22px;
+  }
+
+  .left-sidebar.--display {
+    left: 0px;
+    transition: 0.5s;
+  }
+
   .header {
     height: 104px;
+    position: fixed;
+    overflow: hidden;
+    transition: 0.5s;
+    z-index: 1;
   }
+
+  .main {
+    transform: translateY(104px);
+  }
+
   .header__logo--normal {
     display: none;
   }
@@ -1001,6 +1032,41 @@ input[type="search"]::-webkit-search-cancel-button {
     display: none;
   }
   .header__search-box {
+    display: block;
+    width: 78%;
+    position: absolute;
+    top: 74px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Expanded header with search box */
+  .header.--expand {
+    height: 166px;
+  }
+
+  .header.--expand .header__search-box {
+    display: block;
+    width: 78%;
+    position: absolute;
+    top: 74px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .header.--expand .header__search-box.--display-suggestions {
+    border-radius: 20px;
+  }
+
+  .header.--expand .header__search-box .header__suggestion-block {
+    display: none;
+  }
+
+  .header__search-box-icon {
     display: none;
   }
 
@@ -1049,7 +1115,10 @@ input[type="search"]::-webkit-search-cancel-button {
     border-radius: 0px;
     margin-left: 0;
     margin-right: 0;
-    height: 321px;
+  }
+
+  .main__card-content {
+    height: 157px;
   }
 
   .main__card-image {
@@ -1094,14 +1163,6 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 0px;
   }
 
-  .leftmenu {
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    background-color: #151515;
-    box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
-  }
   ::-webkit-scrollbar {
     width: 0; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */
@@ -1114,7 +1175,6 @@ input[type="search"]::-webkit-search-cancel-button {
     min-width: 303px;
     position: absolute;
     left: -360px;
-    z-index: 2;
     height: 100%;
     transform: translateY(-120px);
     background: #151515;
@@ -1123,8 +1183,22 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .left-sidebar.--display {
-    left: -0px;
+    left: 0px;
     transition: 0.5s;
+  }
+
+  .left-sidebar__logo {
+    display: block;
+    margin-top: 34px;
+    margin-bottom: 48px;
+  }
+
+  .left-sidebar__logo--shrink {
+    display: none;
+  }
+
+  .left-sidebar__navigation.--light.--logout {
+    display: block;
   }
 
   .header__logout .header__text,
@@ -1165,6 +1239,10 @@ input[type="search"]::-webkit-search-cancel-button {
     flex: 0 0 45%;
     margin-left: 25px;
     margin-right: 0;
+  }
+
+  .main__card-content-info h2 {
+    width: 220px;
   }
 
   .modal-bg {

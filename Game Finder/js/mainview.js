@@ -42,9 +42,11 @@ let androidSvg = `<svg id="android" width="17" height="13" viewBox="0 0 17 13" f
 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.1271 12.7978C16.0247 12.8989 15.8903 12.9561 15.7455 12.9561C15.6008 12.9561 15.462 12.8989 15.3594 12.7978C15.2582 12.6948 15.2021 12.5603 15.2021 12.4154C15.2021 12.1153 15.4451 11.8727 15.7455 11.8727C15.8903 11.8727 16.0247 11.928 16.1271 12.0314C16.2284 12.1324 16.2855 12.2692 16.2855 12.4154C16.2855 12.5603 16.2284 12.6948 16.1271 12.7978ZM15.2934 12.4154C15.2934 12.292 15.3396 12.1788 15.4239 12.095C15.5104 12.0092 15.6257 11.963 15.7455 11.963C15.8655 11.963 15.9779 12.0092 16.0622 12.095C16.1473 12.1788 16.1932 12.292 16.1932 12.4154C16.1932 12.6627 15.9922 12.8634 15.7455 12.8634C15.6257 12.8634 15.5104 12.8177 15.4239 12.7331C15.3396 12.6477 15.2934 12.5358 15.2934 12.4154ZM15.9927 12.6405C15.9976 12.6544 16.0034 12.6627 16.0118 12.6651L16.0193 12.6694V12.7038H15.9018L15.8996 12.6969L15.8916 12.6761C15.8903 12.6651 15.8887 12.6508 15.8871 12.6267L15.8819 12.5325C15.8805 12.4991 15.8696 12.4796 15.8494 12.4667C15.8345 12.4617 15.8141 12.4579 15.7837 12.4579H15.6205V12.7038H15.5134V12.0997H15.7941C15.8399 12.0997 15.8785 12.1078 15.908 12.1204C15.9672 12.1482 15.9976 12.1984 15.9976 12.269C15.9976 12.3037 15.9889 12.3362 15.9741 12.3601C15.9612 12.377 15.946 12.3924 15.9295 12.4075L15.9339 12.4106C15.9451 12.4185 15.9563 12.4263 15.9628 12.4378C15.9778 12.4543 15.9846 12.482 15.9858 12.5177L15.9885 12.5946C15.9889 12.6143 15.9905 12.6296 15.9927 12.6405ZM15.8661 12.3435C15.8835 12.3323 15.8916 12.31 15.8916 12.276C15.8916 12.2401 15.8792 12.2162 15.8549 12.2042C15.8399 12.1984 15.8214 12.1942 15.7964 12.1942H15.6205V12.3639H15.7867C15.8198 12.3639 15.846 12.3571 15.8661 12.3435Z" fill="white"/>
 </svg>`; //Placeholder
 
+//HTML refs
 let cards = document.querySelectorAll(".main__card");
 let cardsContainer = document.querySelector(".main__catalog");
 let searchInput = document.querySelector(".header__search-box-input");
+let header = document.querySelector(".header");
 
 //Accessory function to reformat data given by API to match mockup
 const dateReformat = function (dateComplete) {
@@ -229,14 +231,10 @@ const closeModal = function () {
 
 //Mobile search bar toggle
 const toggleSearch = function () {
-  let header = document.querySelector(".header");
-  let searchbox = document.querySelector(".header__search-box");
   if (!header.classList.contains("--expand")) {
     header.classList.add("--expand");
-    searchbox.classList.add("--expand");
   } else {
     header.classList.remove("--expand");
-    searchbox.classList.remove("--expand");
   }
 };
 
@@ -245,6 +243,11 @@ const displayLeftsidebar = function () {
   document.querySelector(".left-sidebar").classList.add("--display");
 };
 
+const closeLeftsidebar = function () {
+  document.querySelector(".left-sidebar").classList.remove("--display");
+};
+
+//Close leftbar when clicking outside
 window.addEventListener("click", function (e) {
   let leftSidebar = document.querySelector(".left-sidebar");
   if (
@@ -252,6 +255,6 @@ window.addEventListener("click", function (e) {
     !document.querySelector(".header__logo--shrink").contains(e.target) &&
     leftSidebar.classList.contains("--display")
   ) {
-    document.querySelector(".left-sidebar").classList.remove("--display");
+    closeLeftsidebar();
   }
 });
