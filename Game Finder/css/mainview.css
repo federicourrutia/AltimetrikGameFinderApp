@@ -39,6 +39,7 @@ svg {
   box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
   height: 120px;
   width: 100%;
+  box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
 }
 
 .header__wrap {
@@ -91,8 +92,8 @@ svg {
 
 .header__search-mobile {
   display: none;
-  margin-top: 45px;
-  margin-right: 40px;
+  margin-top: 41px;
+  margin-right: 39px;
 }
 
 .left-sidebar {
@@ -273,7 +274,7 @@ input[type="radio"]:checked {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  margin-left: 25px;
+  margin-left: 22px;
   margin-top: 9px;
   margin-bottom: 9px;
 }
@@ -657,6 +658,34 @@ input[type="search"]::-webkit-search-cancel-button {
   display: block;
 }
 
+/* Expanded header with search box */
+.header.--expand {
+  height: 166px;
+}
+
+.header__search-box.--expand {
+  display: block;
+  width: 78%;
+  position: absolute;
+  top: 63px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header__search-box.--expand .header__search-box-icon {
+  display: none;
+}
+
+.header__search-box.--expand.--display-suggestions {
+  border-radius: 20px;
+}
+
+.header__search-box.--expand .header__suggestion-block {
+  display: none;
+}
+
 /* Left menu wip */
 .leftmenu {
   position: absolute;
@@ -714,6 +743,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal__close {
+  width: 16px;
+  height: 16px;
   position: absolute;
   right: 20px;
   top: 20px;
@@ -736,13 +767,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .modal__right {
   width: 50%;
-}
-
-.modal__close {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  cursor: pointer;
 }
 
 .modal__top-platforms {
@@ -988,6 +1012,10 @@ input[type="search"]::-webkit-search-cancel-button {
     display: block;
   }
 
+  .header__search-box-input {
+    width: 204px;
+  }
+
   .main__header-wrap {
     height: 229px;
     align-items: flex-start;
@@ -1083,7 +1111,20 @@ input[type="search"]::-webkit-search-cancel-button {
 /* Media queries for tablet */
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
   .left-sidebar {
-    display: none;
+    min-width: 303px;
+    position: absolute;
+    left: -360px;
+    z-index: 2;
+    height: 100%;
+    transform: translateY(-120px);
+    background: #151515;
+    box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
+    transition: 0.5s;
+  }
+
+  .left-sidebar.--display {
+    left: -0px;
+    transition: 0.5s;
   }
 
   .header__logout .header__text,
@@ -1124,5 +1165,32 @@ input[type="search"]::-webkit-search-cancel-button {
     flex: 0 0 45%;
     margin-left: 25px;
     margin-right: 0;
+  }
+
+  .modal-bg {
+    display: block;
+    top: 120px;
+  }
+
+  .modal {
+    width: 100vw;
+    height: calc(100vh - 120px);
+    border-radius: 0px;
+  }
+
+  .modal__background {
+    border-radius: 0px;
+  }
+
+  .modal__close {
+    width: 25px;
+    position: absolute;
+    right: 30%;
+    top: 30px;
+    cursor: pointer;
+  }
+
+  .modal__content {
+    padding-left: 30px;
   }
 }
