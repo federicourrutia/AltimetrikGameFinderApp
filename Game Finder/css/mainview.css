@@ -721,7 +721,14 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal__wrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: 473px 472px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "tags gallery"
+    "description gallery"
+    "buttons gallery"
+    "details gallery";
 }
 
 .modal__close {
@@ -741,14 +748,26 @@ input[type="search"]::-webkit-search-cancel-button {
   padding-left: 79px;
 }
 
+.modal__left:first-child {
+  grid-area: tags;
+}
+
 .modal__left {
-  width: 50%;
   display: flex;
   flex-direction: column;
+  grid-area: details;
+}
+
+.modal__left-description {
+  grid-area: description;
+}
+
+.modal__left2 {
+  grid-area: buttons;
 }
 
 .modal__right {
-  width: 50%;
+  grid-area: gallery;
 }
 
 .modal__top-platforms {
@@ -891,9 +910,9 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin-top: 32px;
-  display: flex;
-  flex-wrap: wrap;
   font-size: 12px;
   font-weight: 300;
   line-height: 16px;
@@ -1183,9 +1202,191 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 0px;
   }
 
+  /* Modal for mobile */
+  .modal-bg {
+    display: block;
+    background-color: transparent;
+    cursor: not-allowed; /* pointer-events not working here for some reason */
+  }
+
+  .modal {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 104px;
+    width: 100vw;
+    height: calc(100vh - 104px);
+    border-radius: 0px;
+  }
+
+  .modal__top-platforms {
+    margin-top: 31px;
+    margin-left: 2px;
+  }
+
+  .modal__wrap {
+    display: grid;
+    /* grid-row-gap: 32px; */
+    grid-template-rows: auto;
+    grid-template-columns: 44% 56%;
+    grid-template-areas:
+      "tags tags"
+      "description description"
+      "buttons buttons"
+      "gallery gallery"
+      "details details";
+  }
+
+  .modal__content h1 {
+    font-size: 40px;
+    line-height: 54px;
+    margin-top: 10px;
+    margin-left: 0px;
+  }
+
+  .modal__left:first-child {
+    grid-gap: 24px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 45% auto;
+    margin-top: 35px;
+  }
+
+  .modal__left-description {
+    margin-top: 17px;
+  }
+
+  .modal__left2 {
+    margin-top: 29px;
+  }
+
+  .modal__info {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px;
+  }
+
+  .modal__info span {
+    margin-right: 0px;
+    margin-bottom: 15px;
+  }
+
+  .modal__info span:first-child,
+  .modal__info span:nth-child(2),
+  .modal__info span:nth-child(3) {
+    padding: 3px 0px 2px 0px;
+  }
+
+  .modal__buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px;
+  }
+
+  .modal__button-transparent {
+    padding-left: 9px;
+    padding-right: 0px;
+    width: 111px;
+  }
+
+  .modal__button-green {
+    margin-left: 0px;
+    width: 111px;
+    height: 50px;
+    margin-top: 10px;
+  }
+
+  .modal__button-green svg {
+    display: none;
+  }
+
+  .modal__button-gray {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal__button-gray:last-child {
+    margin-left: 0px;
+    margin-top: 24px;
+  }
+
+  .modal__game-description {
+    width: 100%;
+    margin-top: 0px;
+  }
+  .modal__background {
+    border-radius: 0px;
+    width: auto;
+    height: 30%;
+  }
+
+  .modal__comment-buttons {
+    margin-top: 0px;
+    flex-direction: column;
+  }
+
+  .modal__left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal__details {
+    grid-template-columns: auto;
+    margin-top: 32px;
+  }
+
+  .modal__details .modal__details-text-box:last-child {
+    margin-bottom: 0px;
+  }
+
+  .modal__right {
+    margin-top: 31px;
+    display: grid;
+    grid-template-areas:
+      "medium medium"
+      "small small"
+      "small small";
+    grid-gap: 10px;
+    padding-top: 0px;
+    padding-left: 0px;
+    grid-template-rows: auto;
+  }
+
+  .modal__right .img-medium {
+    width: 100%;
+    object-fit: cover;
+    grid-area: medium;
+  }
+
+  .modal__right .img-small {
+    width: 100%;
+    object-fit: cover;
+    margin: 0;
+  }
+
+  .modal__close {
+    width: 25px;
+    position: absolute;
+    right: 40px;
+    top: 26px;
+    cursor: pointer;
+  }
+
+  .modal__content {
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    position: relative;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+  }
+
   ::-webkit-scrollbar {
-    width: 0; /* Remove scrollbar space */
-    background: transparent; /* Optional: just make scrollbar invisible */
+    width: 0;
+    background: transparent;
   }
 }
 
@@ -1265,6 +1466,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 220px;
   }
 
+  /* Modal for tablet */
   .modal-bg {
     display: block;
     top: 120px;
@@ -1276,19 +1478,46 @@ input[type="search"]::-webkit-search-cancel-button {
     border-radius: 0px;
   }
 
-  .modal__background {
-    border-radius: 0px;
+  .modal__wrap {
+    display: grid;
+    grid-template-rows: auto auto 40px auto;
+    grid-template-columns: 44% 56%;
+    grid-template-areas:
+      "tags tags"
+      "description description"
+      "buttons gallery"
+      "details gallery";
   }
 
+  .modal__left:first-child {
+    width: 100%;
+  }
+
+  .modal__background {
+    border-radius: 0px;
+    width: 100%;
+  }
+
+  .modal__comment-buttons {
+    margin-top: 0px;
+  }
+
+  .modal__right {
+    padding-top: 0px;
+    padding-left: 0px;
+  }
   .modal__close {
     width: 25px;
     position: absolute;
-    right: 30%;
     top: 30px;
     cursor: pointer;
   }
 
   .modal__content {
     padding-left: 30px;
+    position: relative;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
   }
 }
