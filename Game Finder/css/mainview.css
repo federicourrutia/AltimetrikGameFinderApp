@@ -687,7 +687,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .modal-bg {
   display: flex;
   position: fixed;
-  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
@@ -767,7 +766,46 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal__right {
+  margin-top: 31px;
+  display: grid;
+  grid-template-areas:
+    "medium medium"
+    "small small"
+    "small small";
+  grid-gap: 10px;
+  padding-top: 0px;
+  padding-left: 0px;
+  grid-template-rows: 223px 110px 110px;
+  grid-template-columns: 191px 191px;
   grid-area: gallery;
+}
+
+.modal__img-container:first-child {
+  grid-area: medium;
+}
+
+.modal__img-container.-view-all {
+  display: flex;
+  flex-direction: column;
+}
+
+.view-all-container {
+  margin-top: 33px;
+  align-self: center;
+  margin-right: 2px;
+  position: absolute;
+}
+
+.modal__img-container.-view-all p {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.modal__img-container.-view-all svg {
+  margin-top: 2px;
+  margin-left: 15px;
+  width: 13px;
+  height: 3px;
 }
 
 .modal__top-platforms {
@@ -863,7 +901,7 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-left: 20px;
   padding-left: 10px;
   padding-right: 12px;
-  padding-top: 8px;
+  align-items: center;
   display: flex;
   width: 151px;
   height: 50px;
@@ -937,18 +975,13 @@ input[type="search"]::-webkit-search-cancel-button {
   color: #fff;
 }
 
-.modal__right {
-  padding-top: 40px;
-  padding-left: 27px;
-}
-
 .img-medium {
+  object-fit: cover;
   width: 385px;
   height: 217px;
 }
 
 .img-small {
-  margin-top: 16px;
   object-fit: cover;
   width: 184px;
   height: 104px;
@@ -964,11 +997,17 @@ input[type="search"]::-webkit-search-cancel-button {
   .main__card {
     flex: 0 0 46%;
   }
+
   .main__card-content-info h2 {
     width: 246px;
   }
+
   .main__card-content-misc-platforms svg:first-child {
     margin-left: 0px;
+  }
+
+  .modal__close {
+    right: 70px;
   }
 }
 
@@ -1047,6 +1086,7 @@ input[type="search"]::-webkit-search-cancel-button {
   .left-sidebar.--display {
     left: 0px;
     transition: 0.5s;
+    overflow-y: scroll;
   }
 
   .header {
@@ -1206,7 +1246,6 @@ input[type="search"]::-webkit-search-cancel-button {
   .modal-bg {
     display: block;
     background-color: transparent;
-    cursor: not-allowed; /* pointer-events not working here for some reason */
   }
 
   .modal {
@@ -1250,6 +1289,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: grid;
     grid-template-columns: 45% auto;
     margin-top: 35px;
+    justify-content: space-between;
   }
 
   .modal__left-description {
@@ -1351,6 +1391,7 @@ input[type="search"]::-webkit-search-cancel-button {
     grid-gap: 10px;
     padding-top: 0px;
     padding-left: 0px;
+    grid-template-columns: 50% 50%;
     grid-template-rows: auto;
   }
 
@@ -1384,6 +1425,7 @@ input[type="search"]::-webkit-search-cancel-button {
     height: 100%;
   }
 
+  /* Disable scrollbar for mobile */
   ::-webkit-scrollbar {
     width: 0;
     background: transparent;
@@ -1401,6 +1443,7 @@ input[type="search"]::-webkit-search-cancel-button {
     background: #151515;
     box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
     transition: 0.5s;
+    z-index: 1;
   }
 
   .left-sidebar.--display {
@@ -1477,6 +1520,9 @@ input[type="search"]::-webkit-search-cancel-button {
     height: calc(100vh - 120px);
     border-radius: 0px;
   }
+  .modal__top-platforms {
+    margin-top: 39px;
+  }
 
   .modal__wrap {
     display: grid;
@@ -1487,6 +1533,14 @@ input[type="search"]::-webkit-search-cancel-button {
       "description description"
       "buttons gallery"
       "details gallery";
+  }
+
+  .modal__content h1 {
+    margin-left: 0px;
+  }
+
+  .modal__info {
+    margin-top: 18px;
   }
 
   .modal__left:first-child {
@@ -1503,21 +1557,53 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .modal__right {
+    margin-top: 45px;
     padding-top: 0px;
     padding-left: 0px;
+    margin-left: 10px;
   }
+
+  .modal__left {
+    margin-top: 26px;
+  }
+
+  .modal__left-description {
+    margin-top: 17px;
+  }
+
+  .modal__left2 {
+    margin-top: 45px;
+  }
+
   .modal__close {
     width: 25px;
     position: absolute;
-    top: 30px;
+    top: 39px;
+    right: 30px;
     cursor: pointer;
   }
 
   .modal__content {
+    padding-right: 30px;
     padding-left: 30px;
     position: relative;
     overflow-y: auto;
     width: 100%;
     height: 100%;
+  }
+
+  .modal__game-description {
+    margin-top: 15px;
+    width: 570px;
+  }
+
+  .modal__details {
+    margin-top: 53px;
+  }
+
+  /* Disable scrollbar for tablet */
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
   }
 }
