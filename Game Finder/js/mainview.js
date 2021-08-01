@@ -424,3 +424,9 @@ window.addEventListener("click", function (e) {
     closeLeftsidebar();
   }
 });
+
+//Logout redirection
+const logout = function () {
+  window.location.href = "login.html";
+  document.cookie = "authToken=" + "";
+};
