@@ -316,22 +316,6 @@ input[type="radio"]:checked {
   overflow: hidden;
 }
 
-.main__card #ps {
-  width: 16px;
-  height: 13px;
-}
-
-.main__card #xbox,
-.main__card #pc,
-.main__card #ios,
-.main__card #mac,
-.main__card #linux,
-.main__card #nintendo,
-.main__card #android {
-  width: 13px;
-  height: 13px;
-}
-
 .main__card-inner-shadow:hover {
   box-shadow: inset 0px 0px 20px #151515;
 }
@@ -437,7 +421,8 @@ input[type="radio"]:checked {
 }
 
 .main__card-content-misc-platforms svg {
-  margin-left: 8px;
+  margin-left: 6px;
+  height: 13px;
 }
 
 /* Removing extra platform icons, to be discussed (can be improved with JS) */
@@ -704,6 +689,11 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 10px;
 }
 
+.modal .lds-default {
+  align-self: center;
+  justify-self: center;
+}
+
 .modal__background {
   position: fixed;
   mix-blend-mode: normal;
@@ -767,7 +757,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal__right {
-  margin-top: 31px;
+  margin-top: 44px;
+  margin-left: 52px;
   display: grid;
   grid-template-areas:
     "medium medium"
@@ -809,14 +800,19 @@ input[type="search"]::-webkit-search-cancel-button {
   height: 3px;
 }
 
+.modal__img-container.-view-all img {
+  opacity: 0.5;
+  filter: blur(2px);
+}
+
 .modal__top-platforms {
   margin-top: 34px;
   width: 100%;
 }
 
 .modal__top-platforms svg {
-  width: 20px;
   height: 20px;
+  margin-right: 10px;
 }
 
 .modal__content h1 {
@@ -955,7 +951,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .modal__details {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 200px 200px;
   margin-top: 32px;
   font-size: 12px;
   font-weight: 300;
@@ -1126,21 +1122,14 @@ input[type="search"]::-webkit-search-cancel-button {
   .left-sidebar {
     min-width: 303px;
     position: fixed;
-    left: -1000px;
+    left: -850px;
     height: 100%;
     background: #151515;
     box-shadow: 14px 0px 36px 5px rgba(0, 0, 0, 0.62);
     transition: 0.5s;
     width: 100%;
     z-index: 1;
-  }
-
-  .left-sidebar.--display {
-    display: flex;
-  }
-
-  .left-sidebar__navigation {
-    margin-left: 30px;
+    padding-left: 31px;
   }
 
   .left-sidebar__navigation:nth-child(2) {
@@ -1149,6 +1138,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .left-sidebar__navigation:nth-child(4) {
     margin-top: 11px;
+    margin-bottom: 0px;
   }
 
   .left-sidebar__navigation:nth-child(5) {
@@ -1156,8 +1146,8 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .left-sidebar__navigation:nth-child(8) {
-    margin-top: 33px;
-    margin-bottom: 33px;
+    margin-top: 11px;
+    margin-bottom: 22px;
   }
 
   .left-sidebar__navigation.--light.--logout {
@@ -1166,12 +1156,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .left-sidebar__logo {
     display: flex;
-    margin-top: 32px;
+    margin-top: 40px;
     justify-content: space-between;
-  }
-
-  .left-sidebar__logo--big {
-    margin-left: 30px;
   }
 
   .left-sidebar__logo--shrink {
@@ -1179,8 +1165,9 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .left-sidebar.--display {
+    display: flex;
     left: 0px;
-    transition: 0.5s;
+    transition: 0.3s;
     overflow-y: scroll;
   }
 
@@ -1353,6 +1340,11 @@ input[type="search"]::-webkit-search-cancel-button {
     border-radius: 0px;
   }
 
+  .modal .lds-default {
+    position: absolute;
+    left: calc(50% - 40px);
+  }
+
   .modal__top-platforms {
     margin-top: 31px;
     margin-left: 2px;
@@ -1478,6 +1470,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .modal__right {
     margin-top: 31px;
+    margin-left: 0px;
     display: grid;
     grid-template-areas:
       "medium medium"
@@ -1548,8 +1541,16 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .left-sidebar__logo {
     display: block;
-    margin-top: 34px;
-    margin-bottom: 48px;
+    margin-top: 40px;
+    margin-bottom: 52px;
+  }
+
+  .left-sidebar__navigation:nth-child(4) {
+    margin-bottom: 23px;
+  }
+
+  .left-sidebar__navigation:nth-child(8) {
+    margin-bottom: 20px;
   }
 
   .left-sidebar__logo--shrink {
@@ -1694,6 +1695,13 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .modal__details {
     margin-top: 53px;
+  }
+
+  .modal__details:nth-child(2) {
+    width: 106px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   /* Disable scrollbar for tablet */
