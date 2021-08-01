@@ -16,6 +16,8 @@ let header = document.querySelector(".header");
 let mainCatalog = document.querySelector(".main__catalog");
 let searchBox = document.querySelector(".header__search-box");
 let leftSidebar = document.querySelector(".left-sidebar");
+let mainHeading = document.querySelector(".main__heading");
+let mainSubHeading = document.querySelector(".main__subheading");
 
 //Accessory function to reformat data given by API to match mockup
 const dateReformat = function (dateComplete) {
@@ -32,7 +34,7 @@ const dateReformat = function (dateComplete) {
 //Accessory function, appends platform svg according to game platform ids
 const platformSvgReplace = function (platformsArray) {
   let allPlatforms = "";
-  platformsArray.map((platform) => {
+  platformsArray?.map((platform) => {
     if (platform.platform.id === 1) {
       allPlatforms += pcSvg;
     }
@@ -82,7 +84,8 @@ const getScreenshots = function (slug) {
   )
     .then((response) => response.json())
     .then((game) => {
-      modalGalleryContainer.innerHTML = `<div class="modal__img-container">
+      game.results.image
+        ? (modalGalleryContainer.innerHTML = `<div class="modal__img-container">
       <img class="img-medium" src=${game.results[0].image} />
       </div>
       <div class="modal__img-container">
@@ -110,26 +113,27 @@ const getScreenshots = function (slug) {
               fill="white"
             />
           </svg>
-          </div>`;
+          </div>`)
+        : (modalGalleryContainer.innerHTML = "");
     });
 };
 
 // Get all main data from API
 const fetchMain = function () {
-  // Fetch alternative
-  // fetch(
-  //   "https://api.rawg.io/api/games?page_size=12&key=a5ec9a0abd70401288b5e273d53daea9"
-  // )
-  //   .then((response) => response.json())
-  //   .then((games) => {
-  //     games.results.map((game, index) => {
-  axios
-    .get(
-      `https://api.rawg.io/api/games?page_size=12&key=a5ec9a0abd70401288b5e273d53daea9`
-    )
+  cardsContainer.innerHTML = `<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+  fetch(
+    "https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&page_size=12"
+  )
+    .then((response) => response.json())
     .then((games) => {
+      // Rawg API already sorts by ratings_count in /games
+      // games.results.sort(function (a, b) {
+      //   return a.ratings_count - b.ratings_count;
+      // });
+      mainHeading.innerHTML = "New and trending";
+      mainSubHeading.innerHTML = `Based on player counts and release date`;
       cardsContainer.innerHTML = "";
-      games.data.results.map((game, index) => {
+      games.results.map((game, index) => {
         cardsContainer.insertAdjacentHTML(
           "beforeend",
           `<li class="main__card">
@@ -194,6 +198,97 @@ const fetchMain = function () {
         );
         getDescription(game.id);
       });
+    });
+};
+
+// Search function trigger
+searchInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    search(searchInput.value);
+  }
+});
+
+// Search results
+const search = function (searchQuery) {
+  cardsContainer.innerHTML = "";
+  fetch(
+    `https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&search=${searchQuery}`
+  )
+    .then((response) => response.json())
+    .then((games) => {
+      mainHeading.innerHTML = "Search results";
+      mainSubHeading.innerHTML = `Displaying search results for: <i>${searchQuery}</i>`;
+      // Sort results object by ratings_count key (highest to lowest)
+      games.results.sort(function (a, b) {
+        return b.ratings_count - a.ratings_count;
+      });
+      games.results
+        .filter((game) => game.rating > 0)
+        .map((game, index) => {
+          cardsContainer.insertAdjacentHTML(
+            "beforeend",
+            `<li class="main__card">
+      <button onclick="openModal(${game.id})"class="main__card-inner-shadow">
+        <figure class="main__card-image">
+          <img alt="${game.name}"src="${game.background_image}"/>
+        </figure>
+        <div class="main__card-content">
+          <div class="main__card-content-body">
+            <div class="main__card-content-info">
+              <h2>${game.name}</h2>
+              <div class="main__card-content-info-text-container">
+                <div class="main__card-content-info-text">
+                  <p>Release date</p>
+                  <p>${dateReformat(game.released)}</p>
+                </div>
+                <div class="main__card-content-info-text">
+                  <p>Genres</p>
+                  <p>${game.genres.map((genre) => {
+                    return " " + genre.name;
+                  })}</p>
+                </div>
+              </div>
+              <p class="main__card-game-description" id="description ${
+                game.id
+              }"></p>
+            </div>
+            <div class="main__card-content-misc">
+              <div class="main__card-content-misc-platforms">
+              ${platformSvgReplace(game.parent_platforms)}
+              </div>
+              <p>#${index + 1}</p>
+              <div class="gift">
+                <svg
+                  width="7"
+                  height="7"
+                  viewBox="0 0 7 7"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.7832 4.41406H0.515625V3.13086H2.7832V0.845703H4.06641V3.13086H6.33398V4.41406H4.06641V6.66992H2.7832V4.41406Z"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3 2.5C3 1.11929 4.11929 0 5.5 0C6.88071 0 8 1.11929 8 2.5C8 1.11929 9.11929 0 10.5 0C11.8807 0 13 1.11929 13 2.5V2.506C13 2.576 13 2.776 12.962 3H15C15.5523 3 16 3.44772 16 4V5C16 5.55228 15.5523 6 15 6H1C0.447715 6 0 5.55228 0 5V4C0 3.44772 0.447715 3 1 3H3.038C3.01159 2.83668 2.99888 2.67144 3 2.506V2.5ZM4.068 3H7V2.5C7 1.9641 6.7141 1.46891 6.25 1.20096C5.7859 0.933013 5.2141 0.933013 4.75 1.20096C4.2859 1.46891 4 1.9641 4 2.5C4 2.585 4.002 2.774 4.045 2.93C4.05101 2.95385 4.05869 2.97724 4.068 3ZM11.932 3H9V2.5C9 1.67157 9.67157 1 10.5 1C11.3284 1 12 1.67157 12 2.5C12 2.585 11.998 2.774 11.955 2.93C11.9489 2.95381 11.9412 2.9772 11.932 3ZM15 7V14.5C15 15.3284 14.3284 16 13.5 16H9V7H15ZM1 14.5C1 15.3284 1.67157 16 2.5 16H7V7H1V14.5Z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
+    </li>`
+          );
+          getDescription(game.id);
+        });
     });
 };
 
@@ -354,9 +449,13 @@ const openModal = function (id) {
             </div>
             <div class="modal__details-text-box">
               <p>Genre</p>
-              <a class="modal__hypertext">${game.genres.map((genre) => {
-                return " " + genre.name;
-              })}</a>
+              <a class="modal__hypertext">${
+                game.genres
+                  ? game.genres.map((genre) => {
+                      return " " + genre.name;
+                    })
+                  : "asd"
+              }</a>
             </div>
             <div class="modal__details-text-box">
               <p>Release date</p>
@@ -368,17 +467,23 @@ const openModal = function (id) {
             </div>
             <div class="modal__details-text-box">
               <p>Publisher</p>
-              <a class="modal__hypertext">${game.publishers.map((publisher) => {
-                return " " + publisher.name;
-              })}</a>
+              <a class="modal__hypertext">${
+                game.publishers
+                  ? game.publishers.map((publisher) => {
+                      return " " + publisher.name;
+                    })
+                  : "None"
+              }</a>
             </div>
             <div class="modal__details-text-box">
               <p>Age rating</p>
-              <p>${game.esrb_rating.name}</p>
+              <p>${game.esrb_rating ? game.esrb_rating.name : "None"}</p>
             </div>
             <div class="modal__details-text-box">
               <p>Website</p>
-              <a class="modal__hypertext">${game.website}</a>
+              <a class="modal__hypertext">${
+                game.website ? game.website : "None"
+              }</a>
             </div>
           </div>
         </div>
