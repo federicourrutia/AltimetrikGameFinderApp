@@ -999,6 +999,18 @@ input[type="search"]::-webkit-search-cancel-button {
   color: #fff;
   font-size: 24px;
   margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.main__search-history li:hover {
+  color: #7cd235;
+}
+
+.main__search-history li:hover:after {
+  content: url(../img/searchmini.svg);
+  fill: #7cd235;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 /*CSS Loader*/
