@@ -22,6 +22,67 @@ let mainSubHeading = document.querySelector(".main__subheading");
 //Storing last searches from localStorage in array
 let pastSearches = [];
 
+// Switch from horizontal to grid view and viceversa
+const horizontalView = function () {
+  mainCatalog.classList.add("--horizontal");
+  cards.forEach((element) => {
+    element.classList.add("--horizontal");
+  });
+};
+
+const gridView = function () {
+  mainCatalog.classList.remove("--horizontal");
+  cards.forEach((element) => {
+    element.classList.remove("--horizontal");
+  });
+};
+
+//Mobile search bar toggle
+const toggleSearch = function () {
+  if (!header.classList.contains("--expand")) {
+    header.classList.add("--expand");
+  } else {
+    header.classList.remove("--expand");
+  }
+};
+
+//Mobile leftbar display
+const displayLeftsidebar = function () {
+  leftSidebar.classList.add("--display");
+};
+
+const closeLeftsidebar = function () {
+  leftSidebar.classList.remove("--display");
+};
+
+//Close leftbar when clicking outside
+window.addEventListener("click", function (e) {
+  if (
+    !leftSidebar.contains(e.target) &&
+    !document.querySelector(".header__logo--shrink").contains(e.target) &&
+    leftSidebar.classList.contains("--display")
+  ) {
+    closeLeftsidebar();
+  }
+});
+
+//Logout redirection
+const logout = function () {
+  window.location.href = "login.html";
+  document.cookie = "authToken=" + "";
+};
+
+// Search suggestions display classes
+searchInput.addEventListener("click", function () {
+  searchBox.classList.add("--display-suggestions");
+});
+searchInput.addEventListener("focus", function () {
+  searchBox.classList.add("--display-suggestions");
+});
+searchInput.addEventListener("blur", function () {
+  searchBox.classList.remove("--display-suggestions");
+});
+
 //Accessory function to reformat data given by API to match mockup
 const dateReformat = function (dateComplete) {
   let completeDate = new Date(dateComplete);
@@ -70,6 +131,7 @@ const platformSvgReplace = function (platformsArray) {
 const getDescription = function (id) {
   let descriptionContainer = document.getElementById(`description ${id}`);
   if (descriptionContainer) {
+    //Only executed when there's a description container available*
     axios
       .get(
         `https://api.rawg.io/api/games/${id}?key=11fed5206660488b9c693847e2864ee1`
@@ -78,7 +140,6 @@ const getDescription = function (id) {
         descriptionContainer.innerHTML = game.data.description;
       });
   } else {
-    console.log("nothing");
     return;
   }
 };
@@ -126,7 +187,10 @@ const getScreenshots = function (slug) {
 
 // Get all main data from API
 const fetchMain = function () {
+  closeLeftsidebar();
   cardsContainer.innerHTML = `<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+  mainHeading.innerHTML = "New and trending";
+  mainSubHeading.innerHTML = "Based on player counts and release date";
   fetch(
     "https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&page_size=12"
   )
@@ -136,8 +200,6 @@ const fetchMain = function () {
       // games.results.sort(function (a, b) {
       //   return a.ratings_count - b.ratings_count;
       // });
-      mainHeading.innerHTML = "New and trending";
-      mainSubHeading.innerHTML = "Based on player counts and release date";
       cardsContainer.innerHTML = "";
       games.results.map((game, index) => {
         cardsContainer.insertAdjacentHTML(
@@ -207,42 +269,46 @@ const fetchMain = function () {
     });
 };
 
-// Search function trigger
-searchInput.addEventListener("keypress", function (e) {
-  if (e.key === "Enter") {
-    search(searchInput.value);
-  }
-});
+// Main card loading from API at initialization
+fetchMain();
 
 //Display last searches
 const lastSearches = function () {
-  let searchesArray = JSON.parse(
-    localStorage.getItem("lastSearches")
-  ).reverse();
-  mainHeading.innerHTML = "Last searches";
-  mainSubHeading.innerHTML = `Showing last 10 searches. Click to search again.`;
-  cardsContainer.innerHTML = `<li><ul class="main__search-history">${searchesArray
-    .map(
-      (searchString) =>
-        `<li onclick="search('${searchString}')"><a>${searchString}</a></li>`
-    )
-    .join(" ")}</ul></li>`;
+  closeLeftsidebar();
+  let localStorageHistory = localStorage.getItem("lastSearches");
+  if (localStorageHistory) {
+    let searchesArray = JSON.parse(localStorageHistory).reverse();
+    mainHeading.innerHTML = "Last searches";
+    mainSubHeading.innerHTML =
+      "Showing your last searches (up to 10). Click to search again.";
+    cardsContainer.innerHTML = `<li><ul class="main__search-history">${searchesArray
+      .map(
+        (searchString) =>
+          `<li onclick="search('${searchString}')"><a>${searchString}</a></li>`
+      )
+      .join(" ")}</ul></li>`;
+  } else {
+    mainHeading.innerHTML = "Last searches";
+    mainSubHeading.innerHTML = "You have no recent searches";
+    cardsContainer.innerHTML = "";
+  }
 };
 
 // Search results
 const search = function (searchQuery) {
-  cardsContainer.innerHTML = "";
+  cardsContainer.innerHTML = `<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+  mainHeading.innerHTML = "Search results";
+  mainSubHeading.innerHTML = `Searching for: <i>${searchQuery}</i>`;
   fetch(
     `https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&search=${searchQuery}`
   )
     .then((response) => response.json())
     .then((games) => {
+      cardsContainer.innerHTML = "";
+      mainSubHeading.innerHTML = `Showing search results for: <i>${searchQuery}</i>`;
       //Store search query in localStorage
       pastSearches.push(searchQuery);
       localStorage.setItem("lastSearches", JSON.stringify(pastSearches));
-
-      mainHeading.innerHTML = "Search results";
-      mainSubHeading.innerHTML = `Showing search results for: <i>${searchQuery}</i>`;
       // Sort results object by ratings_count key (highest to lowest)
       games.results.sort(function (a, b) {
         return b.ratings_count - a.ratings_count;
@@ -317,33 +383,11 @@ const search = function (searchQuery) {
     });
 };
 
-// Main card loading from API at initialization
-fetchMain();
-
-// Switch from horizontal to grid view and viceversa
-const horizontalView = function () {
-  mainCatalog.classList.add("--horizontal");
-  cards.forEach((element) => {
-    element.classList.add("--horizontal");
-  });
-};
-
-const gridView = function () {
-  mainCatalog.classList.remove("--horizontal");
-  cards.forEach((element) => {
-    element.classList.remove("--horizontal");
-  });
-};
-
-// Search suggestions display classes
-searchInput.addEventListener("click", function () {
-  searchBox.classList.add("--display-suggestions");
-});
-searchInput.addEventListener("focus", function () {
-  searchBox.classList.add("--display-suggestions");
-});
-searchInput.addEventListener("blur", function () {
-  searchBox.classList.remove("--display-suggestions");
+// Search function trigger
+searchInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    search(searchInput.value);
+  }
 });
 
 // Modal functions
@@ -524,39 +568,4 @@ const openModal = function (id) {
 
 const closeModal = function () {
   document.querySelector(".modal-bg").classList.add("hidden");
-};
-
-//Mobile search bar toggle
-const toggleSearch = function () {
-  if (!header.classList.contains("--expand")) {
-    header.classList.add("--expand");
-  } else {
-    header.classList.remove("--expand");
-  }
-};
-
-//Mobile leftbar display
-const displayLeftsidebar = function () {
-  leftSidebar.classList.add("--display");
-};
-
-const closeLeftsidebar = function () {
-  leftSidebar.classList.remove("--display");
-};
-
-//Close leftbar when clicking outside
-window.addEventListener("click", function (e) {
-  if (
-    !leftSidebar.contains(e.target) &&
-    !document.querySelector(".header__logo--shrink").contains(e.target) &&
-    leftSidebar.classList.contains("--display")
-  ) {
-    closeLeftsidebar();
-  }
-});
-
-//Logout redirection
-const logout = function () {
-  window.location.href = "login.html";
-  document.cookie = "authToken=" + "";
 };

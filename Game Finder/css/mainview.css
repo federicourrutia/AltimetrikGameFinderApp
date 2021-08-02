@@ -995,6 +995,10 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /*Search history*/
+.main__search-history {
+  padding-left: 39px;
+}
+
 .main__search-history li {
   color: #fff;
   font-size: 24px;
