@@ -182,6 +182,9 @@ const getScreenshots = function (slug) {
             />
           </svg>
           </div>`;
+    })
+    .catch(() => {
+      modalGalleryContainer.innerHTML = "";
     });
 };
 
