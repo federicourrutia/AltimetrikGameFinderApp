@@ -19,6 +19,9 @@ let leftSidebar = document.querySelector(".left-sidebar");
 let mainHeading = document.querySelector(".main__heading");
 let mainSubHeading = document.querySelector(".main__subheading");
 
+//Storing last searches from localStorage in array
+let pastSearches = [];
+
 //Accessory function to reformat data given by API to match mockup
 const dateReformat = function (dateComplete) {
   let completeDate = new Date(dateComplete);
@@ -65,14 +68,19 @@ const platformSvgReplace = function (platformsArray) {
 
 // Gets game description by requesting with game id
 const getDescription = function (id) {
-  axios
-    .get(
-      `https://api.rawg.io/api/games/${id}?key=11fed5206660488b9c693847e2864ee1`
-    )
-    .then((game) => {
-      document.getElementById(`description ${id}`).innerHTML =
-        game.data.description;
-    });
+  let descriptionContainer = document.getElementById(`description ${id}`);
+  if (descriptionContainer) {
+    axios
+      .get(
+        `https://api.rawg.io/api/games/${id}?key=11fed5206660488b9c693847e2864ee1`
+      )
+      .then((game) => {
+        descriptionContainer.innerHTML = game.data.description;
+      });
+  } else {
+    console.log("nothing");
+    return;
+  }
 };
 
 // Gets game screenshots with game slug
@@ -84,8 +92,7 @@ const getScreenshots = function (slug) {
   )
     .then((response) => response.json())
     .then((game) => {
-      game.results.image
-        ? (modalGalleryContainer.innerHTML = `<div class="modal__img-container">
+      modalGalleryContainer.innerHTML = `<div class="modal__img-container">
       <img class="img-medium" src=${game.results[0].image} />
       </div>
       <div class="modal__img-container">
@@ -113,8 +120,7 @@ const getScreenshots = function (slug) {
               fill="white"
             />
           </svg>
-          </div>`)
-        : (modalGalleryContainer.innerHTML = "");
+          </div>`;
     });
 };
 
@@ -131,7 +137,7 @@ const fetchMain = function () {
       //   return a.ratings_count - b.ratings_count;
       // });
       mainHeading.innerHTML = "New and trending";
-      mainSubHeading.innerHTML = `Based on player counts and release date`;
+      mainSubHeading.innerHTML = "Based on player counts and release date";
       cardsContainer.innerHTML = "";
       games.results.map((game, index) => {
         cardsContainer.insertAdjacentHTML(
@@ -208,6 +214,21 @@ searchInput.addEventListener("keypress", function (e) {
   }
 });
 
+//Display last searches
+const lastSearches = function () {
+  let searchesArray = JSON.parse(
+    localStorage.getItem("lastSearches")
+  ).reverse();
+  mainHeading.innerHTML = "Last searches";
+  mainSubHeading.innerHTML = `Showing last 10 searches. Click to search again.`;
+  cardsContainer.innerHTML = `<li><ul class="main__search-history">${searchesArray
+    .map(
+      (searchString) =>
+        `<li onclick="search('${searchString}')"><a>${searchString}</a></li>`
+    )
+    .join(" ")}</ul></li>`;
+};
+
 // Search results
 const search = function (searchQuery) {
   cardsContainer.innerHTML = "";
@@ -216,8 +237,12 @@ const search = function (searchQuery) {
   )
     .then((response) => response.json())
     .then((games) => {
+      //Store search query in localStorage
+      pastSearches.push(searchQuery);
+      localStorage.setItem("lastSearches", JSON.stringify(pastSearches));
+
       mainHeading.innerHTML = "Search results";
-      mainSubHeading.innerHTML = `Displaying search results for: <i>${searchQuery}</i>`;
+      mainSubHeading.innerHTML = `Showing search results for: <i>${searchQuery}</i>`;
       // Sort results object by ratings_count key (highest to lowest)
       games.results.sort(function (a, b) {
         return b.ratings_count - a.ratings_count;
