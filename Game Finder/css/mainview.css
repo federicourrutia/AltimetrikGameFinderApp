@@ -46,6 +46,7 @@ svg {
   width: 100%;
   height: 100%;
 }
+
 .header {
   display: flex;
   flex-direction: column;
@@ -79,10 +80,12 @@ svg {
   color: var(--white);
   background-color: var(--white);
 }
+
 .header__minilogo {
   width: 16px;
   height: 12px;
 }
+
 .header__userphoto {
   background-image: url("../img/tenor.gif");
   height: 44px;
@@ -410,6 +413,7 @@ input[type="radio"]:checked {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .main__card-content-misc {
   display: flex;
   flex-direction: column;
@@ -455,7 +459,7 @@ input[type="radio"]:checked {
   overflow-y: auto;
 }
 
-.gift {
+.main__card-content-misc-button {
   margin-top: 6px;
   align-self: flex-end;
   width: 47px;
@@ -464,7 +468,7 @@ input[type="radio"]:checked {
   border-radius: 10px;
 }
 
-.gift svg:first-child {
+.main__card-content-misc-button svg:first-child {
   margin-top: 8px;
   margin-bottom: 4px;
 }
@@ -648,7 +652,7 @@ input[type="search"]::-webkit-search-cancel-button {
   display: block;
 }
 
-.main__catalog.--horizontal .gift {
+.main__catalog.--horizontal .main__card-content-misc-button {
   margin-top: -7px;
 }
 
@@ -1355,7 +1359,7 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 0px;
   }
 
-  .gift {
+  .main__card-content-misc-button {
     margin-top: 0px;
   }
 
