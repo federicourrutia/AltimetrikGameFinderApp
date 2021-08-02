@@ -4,6 +4,17 @@
   padding: 0;
 }
 
+:root {
+  --white: #fff;
+  --darkgrey: #303030;
+  --lightgrey: #8f8f8f;
+  --green: #7cd235;
+  --icon: #d1d1d1;
+  --error: #ed7474;
+  --error2: #e07979;
+  --bg--green: linear-gradient(180deg, #7cd235 0%, #2bb34f 100%);
+}
+
 body,
 html {
   font-family: "Open Sans", sans-serif;
@@ -14,12 +25,12 @@ html {
 a,
 a:visited {
   text-decoration: none;
-  color: #fff;
+  color: var(--white);
   outline: none;
 }
 
 a:focus-visible {
-  border: 1px solid #fff;
+  border: 1px solid var(--white);
 }
 /* Contains carousel */
 .main {
@@ -57,7 +68,7 @@ input {
   flex-direction: column;
   width: 630px;
   height: 660px;
-  background-color: #303030;
+  background-color: var(--darkgrey);
   border-radius: 10px 0px 0px 10px;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
 }
@@ -96,7 +107,7 @@ input {
   background-position: center;
   background-repeat: no-repeat;
   border: none;
-  background-color: #303030;
+  background-color: var(--darkgrey);
   position: absolute;
   height: 20px;
   width: 20px;
@@ -107,13 +118,13 @@ input {
 }
 
 .input__showpassword-button:focus-visible {
-  border: 1px solid #fff;
+  border: 1px solid var(--white);
   outline: none;
   margin-right: 12px;
 }
 
 .input__container {
-  border: 1px solid #8f8f8f;
+  border: 1px solid var(--lightgrey);
   border-radius: 8px;
   display: flex;
   justify-content: flex-end;
@@ -126,7 +137,7 @@ input {
   justify-content: center;
   height: 50px;
   width: 51px;
-  border-right: 1px solid #8f8f8f;
+  border-right: 1px solid var(--lightgrey);
 }
 
 .input__icon-box svg {
@@ -136,11 +147,11 @@ input {
 
 .input__icon-box .icon-box__variable-fill-user,
 .input__icon-box .icon-box__variable-fill-password {
-  fill: #d1d1d1;
+  fill: var(--icon);
 }
 
 .focused {
-  fill: #d1d1d1 !important;
+  fill: var(--icon) !important;
 }
 
 .input__email-input,
@@ -161,28 +172,28 @@ input {
 
 /* Input on focus */
 .input__container:focus-within {
-  border-color: #fff;
-  color: #fff;
+  border-color: var(--white);
+  color: var(--white);
 }
 
 .input__container:focus-within > .input__icon-box {
-  border-color: #fff;
+  border-color: var(--white);
 }
 
 .input__container:focus-within .input__icon-box .icon-box__variable-fill-user,
 .input__container:focus-within
   .input__icon-box
   .icon-box__variable-fill-password {
-  border-color: #fff;
-  fill: #fff;
+  border-color: var(--white);
+  fill: var(--white);
 }
 
 .input__container:focus-within .input__email-input {
-  color: #fff;
+  color: var(--white);
 }
 
 .input__container:focus-within .input__password-input {
-  color: #fff;
+  color: var(--white);
 }
 
 /* Everything below password input (positioning) */
@@ -216,15 +227,15 @@ input[type="checkbox"] {
   appearance: none;
   min-width: 20px;
   height: 20px;
-  border: 1px solid #8f8f8f;
+  border: 1px solid var(--lightgrey);
   border-radius: 5px;
   cursor: pointer;
   outline: none;
 }
 
 input[type="checkbox"]:checked {
-  border-color: #7cd235;
-  background-color: #7cd235;
+  border-color: var(--green);
+  background-color: var(--green);
   background-image: url("../img/check.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -232,7 +243,7 @@ input[type="checkbox"]:checked {
 
 input[type="checkbox"]:focus {
   outline: none;
-  border: 1px solid #fff;
+  border: 1px solid var(--white);
 }
 
 /* Login button styling */
@@ -244,7 +255,7 @@ input[type="checkbox"]:focus {
   background: linear-gradient(180deg, #7cd235 0%, #2bb34f 100%);
   border-radius: 8px;
   border: none;
-  color: #fff;
+  color: var(--white);
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
@@ -253,7 +264,7 @@ input[type="checkbox"]:focus {
 }
 
 .login__submit-button:hover {
-  background: #7cd235;
+  background: var(--green);
 }
 
 .login__submit-button:active {
@@ -262,7 +273,7 @@ input[type="checkbox"]:focus {
 }
 
 .login__submit-button:focus-visible {
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
 }
 
 /* Separator positioning and margins */
@@ -280,7 +291,7 @@ input[type="checkbox"]:focus {
   width: 61px;
   height: 19px;
   text-align: center;
-  color: #fff;
+  color: var(--white);
   margin-left: 0;
 }
 
@@ -289,8 +300,8 @@ input[type="checkbox"]:focus {
   margin-top: -1px;
   border: none;
   height: 1px;
-  color: #fff;
-  background-color: #fff;
+  color: var(--white);
+  background-color: var(--white);
 }
 
 /* Social (placeholder */
@@ -338,7 +349,7 @@ input[type="checkbox"]:focus {
   min-width: 630px;
   height: 40px;
   margin-left: -315px;
-  color: #fff;
+  color: var(--white);
   position: absolute;
   z-index: 1;
   left: 50%;
@@ -355,7 +366,7 @@ input[type="checkbox"]:focus {
   font-weight: normal;
   font-size: 14px;
   font-weight: 400;
-  color: #fff;
+  color: var(--white);
 }
 
 .snackbar button {
@@ -372,7 +383,7 @@ input[type="checkbox"]:focus {
 }
 
 .snackbar button:focus {
-  border: 1px #fff;
+  border: 1px var(--white);
 }
 
 .--show--success {
@@ -384,7 +395,7 @@ input[type="checkbox"]:focus {
 .--show--error {
   display: flex;
   justify-content: space-between;
-  background-color: #ed7474;
+  background-color: var(--error);
 }
 
 /* Error classes added with JS */
@@ -401,7 +412,7 @@ input[type="checkbox"]:focus {
 .error-message-password {
   display: none;
   margin-left: 1px;
-  color: #e07979;
+  color: var(--error2);
   margin-top: 9px;
   margin-bottom: -13px;
   font-size: 14px;
@@ -412,12 +423,12 @@ input[type="checkbox"]:focus {
 }
 
 .error {
-  color: #e07979;
-  border-color: #e07979;
+  color: var(--error2);
+  border-color: var(--error2);
 }
 
 .error.error {
-  fill: #e07979;
+  fill: var(--error2);
 }
 
 /* Media queries for 720px of HEIGHT (fixes some small height devices issues) */
@@ -430,8 +441,8 @@ input[type="checkbox"]:focus {
 /* Please stop trying to break my css :-) */
 @media (max-width: 319px) {
   * {
-    color: #303030;
-    background-color: #303030;
+    color: var(--darkgrey);
+    background-color: var(--darkgrey);
     visibility: hidden;
     overflow: hidden;
   }
@@ -440,11 +451,11 @@ input[type="checkbox"]:focus {
 /* Media queries for mobile devices */
 @media only screen and (min-width: 320px) and (max-width: 767px) {
   html {
-    background-color: #303030;
+    background-color: var(--darkgrey);
   }
 
   .main {
-    background-color: #303030;
+    background-color: var(--darkgrey);
   }
 
   .login__container {
@@ -523,7 +534,7 @@ input[type="checkbox"]:focus {
   }
 
   .main {
-    background-color: #303030;
+    background-color: var(--darkgrey);
     align-items: flex-start;
   }
 
