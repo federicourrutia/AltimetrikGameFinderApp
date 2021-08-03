@@ -57,7 +57,8 @@ svg {
 }
 
 .header__wrap {
-  margin-left: 39px;
+  padding-left: 39px;
+  padding-right: 38px;
   display: flex;
   justify-content: space-between;
 }
@@ -103,13 +104,11 @@ svg {
 
 .header__logout {
   display: flex;
-  margin-right: 38px;
 }
 
 .header__search-mobile {
   display: none;
   margin-top: 41px;
-  margin-right: 39px;
 }
 
 .left-sidebar {
@@ -560,7 +559,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .header__suggestion-block-text {
   height: 22px;
   line-height: 22px;
-  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   margin-bottom: 15px;
 }
@@ -710,10 +708,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .modal__background {
   position: fixed;
-  mix-blend-mode: normal;
   background-repeat: no-repeat;
   background-size: cover;
-  mix-blend-mode: normal;
   opacity: 0.57;
   -webkit-mask-image: linear-gradient(to top, transparent 0%, black 70%);
   -moz-mask-image: linear-gradient(to top, transparent 0%, black 70%);
@@ -751,6 +747,7 @@ input[type="search"]::-webkit-search-cancel-button {
   height: 793px;
   padding-left: 79px;
   overflow-y: scroll;
+  padding-bottom: 65px;
 }
 
 .modal__left:first-child {

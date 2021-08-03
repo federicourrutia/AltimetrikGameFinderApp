@@ -237,7 +237,7 @@ const fetchMain = function () {
               ${platformSvgReplace(game.parent_platforms)}
               </div>
               <p>#${index + 1}</p>
-              <div class=".main__card-content-misc-button">
+              <div class="main__card-content-misc-button">
                 <svg
                   width="7"
                   height="7"
@@ -351,7 +351,7 @@ const search = function (searchQuery) {
               ${platformSvgReplace(game.parent_platforms)}
               </div>
               <p>#${index + 1}</p>
-              <div class=".main__card-content-misc-button">
+              <div class="main__card-content-misc-button">
                 <svg
                   width="7"
                   height="7"
