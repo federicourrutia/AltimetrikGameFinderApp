@@ -1,1 +1,1 @@
-npx json-server-auth db.json
+npm start
