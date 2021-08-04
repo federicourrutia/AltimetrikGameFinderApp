@@ -130,35 +130,31 @@ const loginValidation = function () {
 };
 
 // Login function w/request
-const login = function () {
-  fetch("http://localhost:3000/login", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: `${emailInput.value}`,
-      password: `${document.querySelector(".input__password-input").value}`,
-    }),
-  })
-    .then(async (response) => {
-      let responseJson = await response.json();
-      if (response.status === 200) {
-        document.cookie = "authToken=" + responseJson.accessToken;
-        window.location.href = "main-view.html";
-      }
-      if (response.status === 400) {
-        setError();
-        mailMessage.classList.remove("show");
-        passwordMessage.classList.add("show");
-        passwordMessage.innerHTML = "Invalid credentials";
-      }
-    })
-    .catch(() => {
-      document.querySelector(".snackbar").classList.add("--show--error");
-      // setTimeout(() => {
-      //   document.querySelector(".snackbar").classList.remove("--show--error");
-      // }, 15000);
+const login = async function () {
+  try {
+    let response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: `${emailInput.value}`,
+        password: `${document.querySelector(".input__password-input").value}`,
+      }),
     });
+    let responseJson = await response.json();
+    if (response.status === 200) {
+      document.cookie = "authToken=" + responseJson.accessToken;
+      window.location.href = "main-view.html";
+    }
+    if (response.status === 400) {
+      setError();
+      mailMessage.classList.remove("show");
+      passwordMessage.classList.add("show");
+      passwordMessage.innerHTML = "Invalid credentials";
+    }
+  } catch {
+    document.querySelector(".snackbar").classList.add("--show--error");
+  }
 };
