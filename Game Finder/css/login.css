@@ -103,7 +103,7 @@ input {
 }
 
 .input__showpassword-button {
-  background-image: url("../img/showpassword.svg");
+  background-image: url("../img/show-password.svg");
   background-position: center;
   background-repeat: no-repeat;
   border: none;

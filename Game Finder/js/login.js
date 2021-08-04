@@ -10,12 +10,12 @@ const showPassword = function () {
     passwordInput.type = "text";
     document.querySelector(
       ".input__showpassword-button"
-    ).style.backgroundImage = "url(img/hidepassword.svg)";
+    ).style.backgroundImage = "url(img/hide-password.svg)";
   } else {
     passwordInput.type = "password";
     document.querySelector(
       ".input__showpassword-button"
-    ).style.backgroundImage = "url(img/showpassword.svg)";
+    ).style.backgroundImage = "url(img/show-password.svg)";
   }
 };
 

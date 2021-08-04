@@ -98,6 +98,7 @@ svg {
 }
 
 .header__text {
+  cursor: pointer;
   margin-top: 44px;
   font-size: 14px;
   line-height: 19px;
@@ -106,6 +107,15 @@ svg {
 
 .header__logout {
   display: flex;
+}
+
+.header__logout-icon {
+  cursor: pointer;
+  width: 16px;
+  height: 12px;
+  margin-top: 43px;
+  margin-left: 11px;
+  margin-right: 32px;
 }
 
 .header__search-mobile {
@@ -312,14 +322,6 @@ input[type="radio"]:checked {
   height: 38px;
   margin-top: 35px;
   margin-left: 1px;
-}
-
-.header__wrap svg:nth-child(2) {
-  width: 16px;
-  height: 12px;
-  margin-top: 48px;
-  margin-left: 11px;
-  margin-right: 32px;
 }
 
 .main__card {
@@ -1017,6 +1019,10 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /*Search history*/
+.main__catalog > li {
+  list-style: none;
+}
+
 .main__search-history {
   padding-left: 39px;
 }
@@ -1033,7 +1039,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .main__search-history li:hover:after {
-  content: url(../img/searchmini.svg);
+  content: url(../img/search-mini.svg);
   fill: var(--limegreen);
   margin-left: 20px;
   margin-top: 10px;
