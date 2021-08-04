@@ -1,5 +1,5 @@
 // HTML References
-let mailMessage = document.querySelector(".error-message-mail");
+let mailErrorMessage = document.querySelector(".error-message-mail");
 let passwordMessage = document.querySelector(".error-message-password");
 let emailInput = document.querySelector(".input__email-input");
 let passwordInput = document.querySelector(".input__password-input");
@@ -95,13 +95,13 @@ const loginValidation = function () {
     .value.length;
 
   resetErrors();
-  mailMessage.classList.remove("show");
+  mailErrorMessage.classList.remove("show");
   passwordMessage.classList.remove("show");
 
   if (emailInputLength === 0) {
     setError();
-    mailMessage.classList.add("show");
-    mailMessage.innerHTML = "Email is required";
+    mailErrorMessage.classList.add("show");
+    mailErrorMessage.innerHTML = "Email is required";
   }
 
   if (passwordInputLength === 0) {
@@ -112,8 +112,8 @@ const loginValidation = function () {
 
   if (isValidEmail(emailInput.value) === false && emailInputLength > 0) {
     setError();
-    mailMessage.classList.add("show");
-    mailMessage.innerHTML = "Email format is invalid";
+    mailErrorMessage.classList.add("show");
+    mailErrorMessage.innerHTML = "Email format is invalid";
   }
 
   if (passwordInputLength < 4 && passwordInputLength > 0) {
@@ -125,12 +125,12 @@ const loginValidation = function () {
     passwordMessage.classList.remove("show");
   }
   if (isValidEmail(emailInput.value) === true && passwordInputLength > 3) {
-    login();
+    callLoginRequest();
   }
 };
 
 // Login function w/request
-const login = async function () {
+const callLoginRequest = async function () {
   try {
     let response = await fetch("http://localhost:3000/login", {
       method: "POST",
@@ -150,7 +150,7 @@ const login = async function () {
     }
     if (response.status === 400) {
       setError();
-      mailMessage.classList.remove("show");
+      mailErrorMessage.classList.remove("show");
       passwordMessage.classList.add("show");
       passwordMessage.innerHTML = "Invalid credentials";
     }

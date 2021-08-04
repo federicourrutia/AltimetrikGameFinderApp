@@ -18,6 +18,8 @@ let searchBox = document.querySelector(".header__search-box");
 let leftSidebar = document.querySelector(".left-sidebar");
 let mainHeading = document.querySelector(".main__heading");
 let mainSubHeading = document.querySelector(".main__subheading");
+let modal = document.querySelector(".modal");
+let modalOverlay = document.querySelector(".modal-bg");
 
 //Storing last searches from localStorage in array
 let pastSearches = [];
@@ -205,7 +207,9 @@ const fetchMain = async function () {
         `<li class="main__card">
       <button onclick="openModal(${game.id})"class="main__card-inner-shadow">
         <figure class="main__card-image">
-          <img alt="${game.name}"src="${game.background_image}"/>
+          <img alt="${game.name}"src="${
+          game.background_image ? game.background_image : "test"
+        }"/>
         </figure>
         <div class="main__card-content">
           <div class="main__card-content-body">
@@ -321,7 +325,11 @@ const search = async function (searchQuery) {
           `<li class="main__card">
       <button onclick="openModal(${game.id})"class="main__card-inner-shadow">
         <figure class="main__card-image">
-          <img alt="${game.name}"src="${game.background_image}"/>
+          <img alt="${game.name}"src="${
+            game.background_image
+              ? game.background_image
+              : "../img/not-found.jpg"
+          }"/>
         </figure>
         <div class="main__card-content">
           <div class="main__card-content-body">
@@ -573,3 +581,10 @@ const openModal = async function (id) {
 const closeModal = function () {
   document.querySelector(".modal-bg").classList.add("hidden");
 };
+
+//Close modal when clicking outside
+modalOverlay.addEventListener("click", function (e) {
+  if (!modal.contains(e.target)) {
+    closeModal();
+  }
+});

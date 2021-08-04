@@ -64,11 +64,13 @@ svg {
 }
 
 .header__logo--normal {
+  cursor: pointer;
   margin-top: 44px;
 }
 
 .header__logo--shrink {
   display: none;
+  cursor: pointer;
   margin-top: 41px;
 }
 
@@ -1634,7 +1636,6 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .main__catalog.--horizontal {
-    align-items: flex-start;
     margin-left: 0px;
   }
 
