@@ -28,7 +28,7 @@ Node.js ([download link](https://nodejs.org/en/download/))
 
 1. Download the code. 
 
-2. Open Game Finder/server folder, and run `start.bat`.  Terminal alternative: `npm start` (within the server folder)
+2. Open Game Finder/server folder, and install the required dependencies with `npm install`.  Then start the server with  `npm start` (all commands executed within the server folder).
 
 3. The server will start at port 3000. This is required in order for the code to work. If not, please close any other applications that are using port 3000 and restart the server.
 
