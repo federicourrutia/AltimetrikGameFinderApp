@@ -3,54 +3,48 @@ let mailErrorMessage = document.querySelector(".error-message-mail");
 let passwordMessage = document.querySelector(".error-message-password");
 let emailInput = document.querySelector(".input__email-input");
 let passwordInput = document.querySelector(".input__password-input");
+let showPasswordBtn = document.querySelector(".input__showpassword-button");
+let userIcon = document.querySelectorAll(".icon-box__variable-fill-user");
+let passwordIcon = document.querySelectorAll(
+  ".icon-box__variable-fill-password"
+);
+let loginSeparator = document.querySelector(".login__separator");
+let errorSelector = document.querySelectorAll(
+  ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill-user, .icon-box__variable-fill-password"
+);
+let snackbar = document.querySelector(".snackbar");
 
 // Hide/show password on click
 const showPassword = function () {
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
-    document.querySelector(
-      ".input__showpassword-button"
-    ).style.backgroundImage = "url(img/hide-password.svg)";
+    showPasswordBtn.style.backgroundImage = "url(img/hide-password.svg)";
   } else {
     passwordInput.type = "password";
-    document.querySelector(
-      ".input__showpassword-button"
-    ).style.backgroundImage = "url(img/show-password.svg)";
+    showPasswordBtn.style.backgroundImage = "url(img/show-password.svg)";
   }
 };
 
 // //Email input active state handling
 emailInput.addEventListener("input", function () {
-  document
-    .querySelectorAll(".icon-box__variable-fill-user")
-    .forEach((element) => element.classList.add("focused"));
+  userIcon.forEach((element) => element.classList.add("focused"));
 });
 emailInput.addEventListener("click", function () {
-  document
-    .querySelectorAll(".icon-box__variable-fill-user")
-    .forEach((element) => element.classList.add("focused"));
+  userIcon.forEach((element) => element.classList.add("focused"));
 });
 emailInput.addEventListener("blur", function () {
-  document
-    .querySelectorAll(".icon-box__variable-fill-user")
-    .forEach((element) => element.classList.remove("focused"));
+  userIcon.forEach((element) => element.classList.remove("focused"));
 });
 
 //Password input active state handling
 passwordInput.addEventListener("input", function () {
-  document
-    .querySelectorAll(".icon-box__variable-fill-password")
-    .forEach((element) => element.classList.add("focused"));
+  passwordIcon.forEach((element) => element.classList.add("focused"));
 });
 passwordInput.addEventListener("click", function () {
-  document
-    .querySelectorAll(".icon-box__variable-fill-password")
-    .forEach((element) => element.classList.add("focused"));
+  passwordIcon.forEach((element) => element.classList.add("focused"));
 });
 passwordInput.addEventListener("blur", function () {
-  document
-    .querySelectorAll(".icon-box__variable-fill-password")
-    .forEach((element) => element.classList.remove("focused"));
+  passwordIcon.forEach((element) => element.classList.remove("focused"));
 });
 
 // Email validation with regular expression
@@ -62,37 +56,25 @@ const isValidEmail = function (email) {
 
 // Input color modifier for errors
 const setError = function () {
-  document.querySelector(".login__separator").classList.add("margin-modifier");
-  document
-    .querySelectorAll(
-      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill-user, .icon-box__variable-fill-password"
-    )
-    .forEach((element) => element.classList.add("error"));
+  loginSeparator.classList.add("margin-modifier");
+  errorSelector.forEach((element) => element.classList.add("error"));
 };
 
 // Removes error classes
 const resetErrors = function () {
-  document
-    .querySelector(".login__separator")
-    .classList.remove("margin-modifier");
-  document
-    .querySelectorAll(
-      ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill-user, .icon-box__variable-fill-password"
-    )
-    .forEach((element) => element.classList.remove("error"));
+  loginSeparator.classList.remove("margin-modifier");
+  errorSelector.forEach((element) => element.classList.remove("error"));
 };
 
 // Snackbar close
 const closeSnackbar = function () {
-  document.querySelector(".snackbar").classList.remove("--show--error");
+  snackbar.classList.remove("--show--error");
 };
 
 // Login validation function pre-request
 const loginValidation = function () {
-  let emailInputLength = document.querySelector(".input__email-input").value
-    .length;
-  let passwordInputLength = document.querySelector(".input__password-input")
-    .value.length;
+  let emailInputLength = emailInput.value.length;
+  let passwordInputLength = passwordInput.value.length;
 
   resetErrors();
   mailErrorMessage.classList.remove("show");
@@ -140,7 +122,7 @@ const callLoginRequest = async function () {
       },
       body: JSON.stringify({
         email: `${emailInput.value}`,
-        password: `${document.querySelector(".input__password-input").value}`,
+        password: `${passwordInput.value}`,
       }),
     });
     let responseJson = await response.json();
@@ -155,6 +137,6 @@ const callLoginRequest = async function () {
       passwordMessage.innerHTML = "Invalid credentials";
     }
   } catch {
-    document.querySelector(".snackbar").classList.add("--show--error");
+    snackbar.classList.add("--show--error");
   }
 };
