@@ -733,7 +733,6 @@ input[type="search"]::-webkit-search-cancel-button {
     "description gallery"
     "buttons gallery"
     "details gallery";
-  height: calc(100% - 120px);
   overflow-y: scroll;
 }
 
@@ -747,12 +746,13 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .modal__content {
+  display: grid;
   color: var(--white);
   position: absolute;
   width: 1082px;
   height: 793px;
   padding-left: 79px;
-  padding-bottom: 65px;
+  padding-right: 10px;
 }
 
 .modal__left:first-child {
@@ -795,20 +795,19 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .modal__img-container.-view-all {
   display: grid;
+  position: relative;
 }
 
 .view-all-container {
   display: flex;
   flex-direction: column;
-  background: rgba(97, 97, 97, 0.4);
+  background: rgb(45 45 45 / 70%);
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   margin-right: 2px;
-  position: relative;
-  grid-row-start: 1;
-  grid-column-start: 1;
+  position: absolute;
 }
 
 .modal__img-container.-view-all p {
@@ -822,11 +821,6 @@ input[type="search"]::-webkit-search-cancel-button {
   margin-top: 2px;
   width: 13px;
   height: 3px;
-}
-
-.modal__img-container.-view-all img {
-  grid-row-start: 1;
-  grid-column-start: 1;
 }
 
 .modal__top-platforms {
@@ -1403,7 +1397,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
   .modal__wrap {
     display: grid;
-    grid-template-rows: auto auto auto auto minmax(550px, 700px);
     grid-template-columns: 44% 56%;
     grid-template-areas:
       "tags tags"
@@ -1411,7 +1404,6 @@ input[type="search"]::-webkit-search-cancel-button {
       "buttons buttons"
       "gallery gallery"
       "details details";
-    min-height: calc(100% - 225px);
   }
 
   .modal__content h1 {
@@ -1517,7 +1509,14 @@ input[type="search"]::-webkit-search-cancel-button {
     grid-template-columns: auto;
   }
 
+  .modal__details-text-box {
+    width: 100%;
+  }
+
   .modal__details .modal__details-text-box:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     margin-bottom: 0px;
   }
 
@@ -1679,7 +1678,6 @@ input[type="search"]::-webkit-search-cancel-button {
       "description description"
       "buttons gallery"
       "details gallery";
-    height: calc(100% - 228px);
     overflow-y: scroll;
   }
 
@@ -1735,7 +1733,7 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .modal__content {
-    padding-right: 30px;
+    padding-right: 21px;
     padding-left: 30px;
     position: relative;
     overflow-y: hidden;

@@ -100,7 +100,7 @@ const dateReformat = function (dateComplete) {
 //Accessory function, appends platform svg according to game platform ids
 const platformSvgReplace = function (platformsArray) {
   let allPlatforms = "";
-  platformsArray?.map((platform) => {
+  platformsArray.map((platform) => {
     if (platform.platform.id === 1) {
       allPlatforms += pcSvg;
     }
@@ -154,28 +154,27 @@ const getScreenshots = async function (slug) {
     let response = await fetch(
       `https://api.rawg.io/api/games/${slug}/screenshots?key=a5ec9a0abd70401288b5e273d53daea9`
     );
-    let game = await response.json();
-    modalGalleryContainer.innerHTML = `<div class="modal__img-container">
-      <img class="img-medium" src=${game.results[0].image} />
-      </div>
-      <div class="modal__img-container">
-        <img class="img-small" src=${game.results[1].image} />
-      </div>
-      <div class="modal__img-container">
-        <img class="img-small" src=${game.results[2].image} />
-      </div>
-      <div class="modal__img-container">
-        <img class="img-small" src=${game.results[3].image} />
-      </div>
-      <div class="modal__img-container -view-all">
-        <img class="img-small" src=${game.results[4].image} />
+    let screenshots = await response.json();
+    modalGalleryContainer.innerHTML = "";
+    for (let i = 0; i < 5; i++) {
+      if (i === 0) {
+        modalGalleryContainer.insertAdjacentHTML(
+          "beforeend",
+          `<div class="modal__img-container">
+        <img class="img-medium" src=${
+          screenshots.results[i].image || "../img/not-found.jpg"
+        } />
+        </div>`
+        );
+      }
+      if (i === 4 && screenshots.results.length > 4) {
+        modalGalleryContainer.insertAdjacentHTML(
+          "beforeend",
+          `<div class="modal__img-container -view-all">
+        <img class="img-small" src=${screenshots.results[4].image} />
         <div class="view-all-container">
           <p>View all</p>
-          <svg
-            viewBox="0 0 9 2"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg viewBox="0 0 9 2" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
@@ -183,7 +182,21 @@ const getScreenshots = async function (slug) {
               fill="white"
             />
           </svg>
-          </div>`;
+        </div>
+      </div>`
+        );
+      }
+      if (i > 0 && i < 4) {
+        modalGalleryContainer.insertAdjacentHTML(
+          "beforeend",
+          `<div class="modal__img-container">
+        <img class="img-medium" src=${
+          screenshots.results[i].image || "../img/not-found.jpg"
+        } />
+        </div>`
+        );
+      }
+    }
   } catch {
     modalGalleryContainer.innerHTML = "";
   }
@@ -208,7 +221,7 @@ const fetchMain = async function () {
       <button onclick="openModal(${game.id})"class="main__card-inner-shadow">
         <figure class="main__card-image">
           <img alt="${game.name}"src="${
-          game.background_image ? game.background_image : "test"
+          game.background_image || "../img/not-found.jpg"
         }"/>
         </figure>
         <div class="main__card-content">
@@ -326,9 +339,7 @@ const search = async function (searchQuery) {
       <button onclick="openModal(${game.id})"class="main__card-inner-shadow">
         <figure class="main__card-image">
           <img alt="${game.name}"src="${
-            game.background_image
-              ? game.background_image
-              : "../img/not-found.jpg"
+            game.background_image || "../img/not-found.jpg"
           }"/>
         </figure>
         <div class="main__card-content">
@@ -406,15 +417,14 @@ const openModal = async function (id) {
   //Add loader when opening modal
   modalContainer.innerHTML = `<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
   document.querySelector(".modal-bg").classList.remove("hidden");
-  try {
-    let response = await fetch(
-      `https://api.rawg.io/api/games/${id}?key=11fed5206660488b9c693847e2864ee1`
-    );
-    let game = await response.json();
-    modalContainer.innerHTML = "";
-    modalContainer.insertAdjacentHTML(
-      "beforeend",
-      `<img class="modal__background" src=${game.background_image} />
+  let response = await fetch(
+    `https://api.rawg.io/api/games/${id}?key=11fed5206660488b9c693847e2864ee1`
+  );
+  let game = await response.json();
+  modalContainer.innerHTML = "";
+  modalContainer.insertAdjacentHTML(
+    "beforeend",
+    `<img class="modal__background" src=${game.background_image} />
     <div class="modal__content">
       <div class="modal__top-platforms">
       ${platformSvgReplace(game.parent_platforms)}
@@ -571,11 +581,8 @@ const openModal = async function (id) {
         </div>
       </div>
     </div>`
-    );
-    getScreenshots(game.slug);
-  } catch (error) {
-    console.log(error);
-  }
+  );
+  getScreenshots(game.slug);
 };
 
 const closeModal = function () {
