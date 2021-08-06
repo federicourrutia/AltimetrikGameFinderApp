@@ -361,13 +361,14 @@ input[type="radio"]:checked {
 .main__card-content {
   display: flex;
   height: 108px;
-  background-color: var(--darkgrey);
 }
 
 .main__card-content-body {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  background-color: var(--darkgrey);
+  z-index: -1;
 }
 
 .main__card-content-info {
