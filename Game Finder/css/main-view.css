@@ -700,7 +700,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .modal {
   width: 1082px;
-  height: 793px;
+  height: 78%;
   margin: 0 auto;
   background-color: var(--darkgrey);
   border-radius: 10px;
@@ -749,9 +749,9 @@ input[type="search"]::-webkit-search-cancel-button {
 .modal__content {
   display: grid;
   color: var(--white);
-  position: absolute;
+  position: relative;
   width: 1082px;
-  height: 793px;
+  height: 100%;
   padding-left: 79px;
   padding-right: 10px;
 }
