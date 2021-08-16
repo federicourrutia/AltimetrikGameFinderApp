@@ -46,7 +46,6 @@ Node.js ([download link](https://nodejs.org/en/download/))
 
 ##### HTML:
 
-- Header logo links to home page
 - Add favicons
 
 ##### CSS:
@@ -61,7 +60,6 @@ Node.js ([download link](https://nodejs.org/en/download/))
 - Consider infinite scrolling (now limited to 12 results in main view)
 - Derivate function responsibilities as much as possible
 - Make new releases functionality (sort by release date from /games)
-- Fetch catch error display
 - Register functionality in login page
 
 - Consider class components reformat
