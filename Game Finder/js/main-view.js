@@ -97,7 +97,7 @@ const dateReformat = function (dateComplete) {
     .replace(/,/g, "");
 };
 
-//Accessory function, appends platform svg according to game platform ids
+//Accessory function, appends platform svg according to game platform ids (can be done with switch)
 const platformSvgReplace = function (platformsArray) {
   let allPlatforms = "";
   platformsArray.map((platform) => {
@@ -205,15 +205,16 @@ const getScreenshots = async function (slug) {
 // Get all main data from API
 const fetchMain = async function () {
   closeLeftsidebar();
+  mainHeading.innerHTML = "";
+  mainSubHeading.innerHTML = "";
   cardsContainer.innerHTML = `<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
-  mainHeading.innerHTML = "New and trending";
-  mainSubHeading.innerHTML = "Based on player counts and release date";
   try {
     let response = await fetch(
       "https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&page_size=12"
     );
     let games = await response.json();
-    cardsContainer.innerHTML = "";
+    mainHeading.innerHTML = "New and trending";
+    mainSubHeading.innerHTML = "Based on player counts and release date";
     games.results.map((game, index) => {
       cardsContainer.insertAdjacentHTML(
         "beforeend",
@@ -282,8 +283,9 @@ const fetchMain = async function () {
       getDescription(game.id);
     });
   } catch (error) {
-    console.log(error);
-  }
+    cardsContainer.innerHTML = "";
+    mainHeading.innerHTML = "Oops!";
+    mainSubHeading.innerHTML = "Something went wrong. Please try again later.";  }
 };
 
 // Main card loading from API at initialization
@@ -305,9 +307,9 @@ const lastSearches = function () {
       )
       .join(" ")}</ul></li>`;
   } else {
+    cardsContainer.innerHTML = "";
     mainHeading.innerHTML = "Last searches";
     mainSubHeading.innerHTML = "You have no recent searches";
-    cardsContainer.innerHTML = "";
   }
 };
 
@@ -321,11 +323,13 @@ const search = async function (searchQuery) {
       `https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&search=${searchQuery}`
     );
     let games = await response.json();
-    cardsContainer.innerHTML = "";
-    mainSubHeading.innerHTML = `Showing search results for: <i>${searchQuery}</i>`;
     //Store search query in localStorage
     pastSearches.push(searchQuery);
     localStorage.setItem("lastSearches", JSON.stringify(pastSearches));
+    //At least one result
+    if (games.results.length > 0) {
+    cardsContainer.innerHTML = "";
+    mainSubHeading.innerHTML = `Showing search results for: <i>${searchQuery}</i>`;
     // Sort results object by ratings_count key (highest to lowest)
     games.results.sort(function (a, b) {
       return b.ratings_count - a.ratings_count;
@@ -399,9 +403,17 @@ const search = async function (searchQuery) {
         );
         getDescription(game.id);
       });
+    }
+    //No results
+    else {
+      cardsContainer.innerHTML = "";
+      mainHeading.innerHTML = "No results";
+      mainSubHeading.innerHTML = `When searching for: <i>${searchQuery}</i>. Try searching for another game.`;
+    }
   } catch (error) {
-    console.log(error);
-  }
+    cardsContainer.innerHTML = "";
+    mainHeading.innerHTML = "Oops!";
+    mainSubHeading.innerHTML = "Something went wrong. Please try again later.";   }
 };
 
 // Search function trigger
