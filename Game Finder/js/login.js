@@ -1,18 +1,18 @@
 // HTML References
-let mailErrorMessage = document.querySelector(".error-message-mail");
-let passwordMessage = document.querySelector(".error-message-password");
-let emailInput = document.querySelector(".input__email-input");
-let passwordInput = document.querySelector(".input__password-input");
-let showPasswordBtn = document.querySelector(".input__showpassword-button");
-let userIcon = document.querySelectorAll(".icon-box__variable-fill-user");
-let passwordIcon = document.querySelectorAll(
+const mailErrorMessage = document.querySelector(".error-message-mail");
+const passwordMessage = document.querySelector(".error-message-password");
+const emailInput = document.querySelector(".input__email-input");
+const passwordInput = document.querySelector(".input__password-input");
+const showPasswordBtn = document.querySelector(".input__showpassword-button");
+const userIcon = document.querySelectorAll(".icon-box__variable-fill-user");
+const passwordIcon = document.querySelectorAll(
   ".icon-box__variable-fill-password"
 );
-let loginSeparator = document.querySelector(".login__separator");
-let errorSelector = document.querySelectorAll(
+const loginSeparator = document.querySelector(".login__separator");
+const errorSelector = document.querySelectorAll(
   ".input__email-input, .input__password-input, .input__container, .input__icon-box, .icon-box__variable-fill-user, .icon-box__variable-fill-password"
 );
-let snackbar = document.querySelector(".snackbar");
+const snackbar = document.querySelector(".snackbar");
 
 // Hide/show password on click
 const showPassword = function () {
@@ -49,7 +49,7 @@ passwordInput.addEventListener("blur", function () {
 
 // Email validation with regular expression
 const isValidEmail = function (email) {
-  let re =
+  const re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 };
