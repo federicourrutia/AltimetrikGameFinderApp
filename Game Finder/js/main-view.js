@@ -101,29 +101,33 @@ const dateReformat = function (dateComplete) {
 const platformSvgReplace = function (platformsArray) {
   let allPlatforms = "";
   platformsArray.map((platform) => {
-    if (platform.platform.id === 1) {
+    switch(platform.platform.id) {
+    case 1:
       allPlatforms += pcSvg;
-    }
-    if (platform.platform.id === 2) {
+      break;
+    case 2:
       allPlatforms += playstationSvg;
-    }
-    if (platform.platform.id === 3) {
+      break;
+    case 3: 
       allPlatforms += xboxSvg;
-    }
-    if (platform.platform.id === 4) {
+      break;
+    case 4: 
       allPlatforms += iosSvg;
-    }
-    if (platform.platform.id === 5) {
+      break;
+    case 5:
       allPlatforms += macSvg;
-    }
-    if (platform.platform.id === 6) {
+      break;
+    case 6:
       allPlatforms += linuxSvg;
-    }
-    if (platform.platform.id === 7) {
+      break;
+    case 7:
       allPlatforms += nintendoSvg;
-    }
-    if (platform.platform.id === 8) {
+      break;
+    case 8:
       allPlatforms += androidSvg;
+      break;
+    default:
+      break;
     }
   });
   return allPlatforms;
@@ -213,6 +217,7 @@ const fetchMain = async function () {
       "https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&page_size=12"
     );
     let games = await response.json();
+    cardsContainer.innerHTML = "";
     mainHeading.innerHTML = "New and trending";
     mainSubHeading.innerHTML = "Based on player counts and release date";
     games.results.map((game, index) => {
@@ -236,9 +241,9 @@ const fetchMain = async function () {
                 </div>
                 <div class="main__card-content-info-text">
                   <p>Genres</p>
-                  <p>${game.genres.map((genre) => {
+                  <p>${game.genres ? game.genres.map((genre) => {
                     return " " + genre.name;
-                  })}</p>
+                  }) : "None"}</p>
                 </div>
               </div>
               <p class="main__card-game-description" id="description ${
@@ -357,9 +362,9 @@ const search = async function (searchQuery) {
                 </div>
                 <div class="main__card-content-info-text">
                   <p>Genres</p>
-                  <p>${game.genres.map((genre) => {
+                  <p>${game.genres ? game.genres.map((genre) => {
                     return " " + genre.name;
-                  })}</p>
+                  }) : "None"}</p>
                 </div>
               </div>
               <p class="main__card-game-description" id="description ${
@@ -555,7 +560,7 @@ const openModal = async function (id) {
                   ? game.genres.map((genre) => {
                       return " " + genre.name;
                     })
-                  : "asd"
+                  : "None"
               }</a>
             </div>
             <div class="modal__details-text-box">
@@ -564,7 +569,7 @@ const openModal = async function (id) {
             </div>
             <div class="modal__details-text-box">
               <p>Developer</p>
-              <a class="modal__hypertext">${game.developers[0].name}</a>
+              <a class="modal__hypertext">${game.developers ? game.developers[0].name : "None"}</a>
             </div>
             <div class="modal__details-text-box">
               <p>Publisher</p>
