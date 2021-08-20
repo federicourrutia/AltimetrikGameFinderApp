@@ -20,6 +20,8 @@ const mainHeading = document.querySelector(".main__heading");
 const mainSubHeading = document.querySelector(".main__subheading");
 const modal = document.querySelector(".modal");
 const modalOverlay = document.querySelector(".modal-bg");
+const suggestionsList = document.querySelector('.header__suggestion-block-list')
+const suggestionsContainer = document.querySelector('.header__suggestion-block')
 
 //Storing last searches from localStorage in array
 let pastSearches = [];
@@ -74,16 +76,6 @@ const logout = function () {
   document.cookie = "authToken=" + "";
 };
 
-// Search suggestions display classes
-searchInput.addEventListener("click", function () {
-  searchBox.classList.add("--display-suggestions");
-});
-searchInput.addEventListener("focus", function () {
-  searchBox.classList.add("--display-suggestions");
-});
-searchInput.addEventListener("blur", function () {
-  searchBox.classList.remove("--display-suggestions");
-});
 
 //Accessory function to reformat data given by API to match mockup
 const dateReformat = function (dateComplete) {
@@ -317,6 +309,92 @@ const lastSearches = function () {
     mainSubHeading.innerHTML = "You have no recent searches";
   }
 };
+
+// Search suggestions with debounce
+function debounce(cb, interval, immediate) {
+  let timeout;
+
+  return function() {
+    let context = this, args = arguments;
+    const later = function() {
+      timeout = null;
+      if (!immediate) cb.apply(context, args);
+    };          
+
+    let callNow = immediate && !timeout;
+
+    clearTimeout(timeout);
+    timeout = setTimeout(later, interval);
+
+    if (callNow) cb.apply(context, args);
+  };
+}; 
+
+// Search function fetch suggestions
+searchInput.addEventListener("keyup", function (e) {
+  // when input is bigger than 2, start to fetch suggestions
+  if (e.target.value.length > 2) {
+    searchBox.classList.add("--display-suggestions");
+    debounce(fetchSuggestions(searchInput.value), 200)
+  }
+  if (e.target.value.length = 0) {
+    searchBox.classList.remove("--display-suggestions");
+  }
+
+});
+
+// Fetch suggestions
+const fetchSuggestions = async function (searchQuery) {
+  try {
+    suggestionsList.innerHTML = '<li class="header__suggestion-block-text">Loading...</li>'
+    let response = await fetch(
+      `https://api.rawg.io/api/games?key=a5ec9a0abd70401288b5e273d53daea9&search=${searchQuery}`
+    );
+    let games = await response.json();
+    if (games.results.length > 0) {
+      let suggestions = []
+
+      // Filter game results by starting query
+      games.results.forEach((result) => {
+        //only results matching starting with the search query
+        if (result.name.toLowerCase().startsWith(searchQuery.toLowerCase())) {
+          suggestions.push(result)
+        }
+      })
+
+      // only return first 3 suggestions
+      if (suggestions.length > 0) {
+      suggestions = suggestions.slice(0, 3)
+      const suggestionsHtml = suggestions.map((suggestion) => `<li class="header__suggestion-block-text" onclick="search('${suggestion.name}')">${suggestion.name}</li>`).join('')
+      suggestionsList.innerHTML = suggestionsHtml
+      }
+    }
+    else {
+      suggestionsList.innerHTML = '<li class="header__suggestion-block-text">No games found</li>'
+    }
+  }
+  catch (error) {
+    suggestionsList.innerHTML = '<li class="header__suggestion-block-text">Cant load suggestions</li>'
+  }
+}
+
+// Commented because blur closes the html before the onclick events
+// searchInput.addEventListener("blur", function () {
+//   searchBox.classList.remove("--display-suggestions");
+//   if (suggestionsList) {
+//     suggestionsList.innerHTML = "";
+//   } 
+// });
+
+//Close search suggestions when clicking outside
+window.addEventListener("click", function (e) {
+  if (!suggestionsContainer.contains(e.target)) {
+    searchBox.classList.remove("--display-suggestions");
+    if (suggestionsList) {
+      suggestionsList.innerHTML = "";
+    } 
+  }
+});
 
 // Search results
 const search = async function (searchQuery) {
